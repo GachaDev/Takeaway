@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { DAO } from 'src/DAO/DAO';
-import { Products } from 'src/entities/Products';
+import { Product } from 'src/entities/Product';
 
 @Injectable()
 export class ProductsModule {
-    DAO: DAO<Products> = new DAO<Products>(Products);
+    DAO: DAO<Product> = new DAO<Product>(Product);
 
-    getAll(): Promise<Products[]> {
+    getAll(): Promise<Product[]> {
         return this.DAO.findAll();
     }
 
-    create(product: Products): Promise<CreateResponse> {
+    create(product: Product): Promise<CreateResponse> {
         return this.DAO.create(product);
     }
 
-    update(product: Products): Promise<number> {
+    update(product: Product): Promise<number> {
         return this.DAO.update(product);
     }
 

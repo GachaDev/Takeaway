@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
 import { ProductsModule } from './products.module';
-import { Products } from 'src/entities/Products';
+import { Product } from 'src/entities/Product';
 import { Response } from 'express';
 
 @Controller('products')
@@ -13,12 +13,12 @@ export class ProductsController {
     }
 
     @Post()
-    async create(@Body() product: Products) {
+    async create(@Body() product: Product) {
         return await this.productsService.create(product);
     }
 
     @Put()
-    async update(@Body() product: Products) {
+    async update(@Body() product: Product) {
         return await this.productsService.update(product);
     }
 
