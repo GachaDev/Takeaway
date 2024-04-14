@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { Exclude } from '@nestjs/class-transformer';
 
 @Entity('users')
@@ -13,7 +13,7 @@ export class User {
     @PrimaryGeneratedColumn('identity')
     id: number;
 
-    @Column({ length: 30 })
+    @Column({ length: 30, unique: true })
     email: string;
 
     @Exclude()
@@ -31,9 +31,6 @@ export class User {
 
     @Column({ default: 0 })
     points: number;
-
-    @Column({ default: false })
-    first_login: boolean;
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
