@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DAO } from 'src/DAO/DAO';
+import { Hash } from 'src/components/utils/Hash';
 import { User } from 'src/entities/User';
 
 @Injectable()
@@ -11,6 +12,7 @@ export class UsersModule {
     }
 
     create(user: User): Promise<CreateResponse> {
+        user.password = Hash.generate(user.password);
         return this.DAO.create(user);
     }
 
