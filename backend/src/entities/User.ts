@@ -3,20 +3,11 @@ import { Exclude } from '@nestjs/class-transformer';
 
 @Entity('users')
 export class User {
-    constructor(
-        email: string,
-        first_name: string,
-        last_name: string,
-        phone: string,
-        first_login: boolean,
-        points: number
-    ) {
+    constructor(email: string, first_name: string, last_name: string, phone: string) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone = phone;
-        this.first_login = first_login;
-        this.points = points;
     }
 
     @PrimaryGeneratedColumn('identity')
@@ -38,9 +29,12 @@ export class User {
     @Column({ length: 15 })
     phone: string;
 
-    @Column()
+    @Column({ default: 0 })
+    points: number;
+
+    @Column({ default: false })
     first_login: boolean;
 
-    @Column()
-    points: number;
+    @Column({ default: () => 'CURRENT_TIMESTAMP' })
+    created_at: Date;
 }
