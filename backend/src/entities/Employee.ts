@@ -9,7 +9,7 @@ export class Employee {
     @Column()
     admin: boolean;
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, { nullable: false })
     @JoinColumn()
     user: User;
 }
