@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Employee } from './Employee';
+import { OrderProduct } from './OrderProduct';
 
 enum PaymentMethod {
     CASH = 'cash',
@@ -44,4 +45,7 @@ export class Order {
 
     @Column({ type: 'enum', enum: OrderState })
     state: OrderState;
+
+    @OneToMany(() => OrderProduct, orderProduct => orderProduct.order)
+    orderProducts: OrderProduct[];
 }
