@@ -7,7 +7,7 @@ export class EmployeesModule {
     DAO: DAO<Employee> = new DAO<Employee>(Employee);
 
     getAll(): Promise<Employee[]> {
-        return this.DAO.findAll();
+        return this.DAO.findAll(['user']);
     }
 
     create(employee: Employee): Promise<CreateResponse> {
