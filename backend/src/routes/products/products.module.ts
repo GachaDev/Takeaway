@@ -7,7 +7,7 @@ export class ProductsModule {
     DAO: DAO<Product> = new DAO<Product>(Product);
 
     getAll(): Promise<Product[]> {
-        return this.DAO.findAll();
+        return this.DAO.findAll(['productIngredients']);
     }
 
     create(product: Product): Promise<CreateResponse> {
