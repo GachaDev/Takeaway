@@ -1,5 +1,4 @@
 import { plainToClass } from '@nestjs/class-transformer';
-import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { AppDataSource } from 'src/components/db/dataSource';
 import { EntityTarget, Repository } from 'typeorm';
 
@@ -14,14 +13,9 @@ export class DAO<T extends EntityWithId> implements CRUD<T> {
         this.repository = AppDataSource.getRepository<T>(entity);
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
     async findAll(relations?: string[]): Promise<T[]> {
         const objects = await this.repository.find({ relations: relations || [] });
-        return objects.map(object => this.convertToClass(object));
-    }
-
-    private convertToClass(object: any): T {
-        return plainToClass(this.repository.target as new () => T, object);
+        return objects.map(object => plainToClass(this.repository.target as new () => T, object));
     }
 
     async findById(id: number | string, relations?: string[]): Promise<T | null> {
