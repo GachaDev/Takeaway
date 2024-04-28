@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
-import { Employee } from './Employee';
 import { OrderProduct } from './OrderProduct';
 
 enum PaymentMethod {
@@ -38,10 +37,6 @@ export class Order {
 
     @Column({ type: 'boolean' })
     delivered: boolean;
-
-    @OneToOne(() => Employee, { nullable: true })
-    @JoinColumn()
-    employee: Employee;
 
     @Column({ type: 'enum', enum: OrderState })
     state: OrderState;

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { IconBrandFacebook, IconBrandInstagram, IconBrandX } from '@tabler/icons-react';
 import Link from 'next/link';
-import logo from '../../public/logo.jpg';
+import logo from '../../public/logo.webp';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -36,22 +36,20 @@ export default function RootLayout({
                         </Link>
                     ))}
                 </nav>
-                <header className="text-black p-4 flex justify-between items-center border-b border-gray-300 shadow">
+                <header className="text-black p-4 px-8 flex justify-between items-center border-b border-gray-300 shadow">
                     <div>
                         <Link href="/">
                             <Image alt="Logo del Burguer" src={logo} width={50} height={50} />
                         </Link>
                     </div>
-                    <ul className="flex space-x-4 font-semibold items-center text-md">
+                    <ul className="flex space-x-4 gap-4 font-semibold items-center text-md">
                         {links.map((media, index) => (
                             <li key={index}>
                                 <Link href={media.url}>{media.label}</Link>
                             </li>
                         ))}
                         <li className="bg-yellow-500 p-3 rounded-xl font-bold">
-                            <Link className="bg-yellow-500 p-3 rounded-xl font-bold" href="/order">
-                                HACER PEDIDO
-                            </Link>
+                            <Link href="/order">HACER PEDIDO</Link>
                         </li>
                     </ul>
                 </header>

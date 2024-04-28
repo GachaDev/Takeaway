@@ -34,4 +34,7 @@ export class User {
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
+
+    @Column({ default: false })
+    employee: boolean;
 }

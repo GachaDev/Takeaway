@@ -4,7 +4,6 @@ import { Product } from 'src/entities/Product';
 import { User } from 'src/entities/User';
 import { Ingredient } from 'src/entities/Ingredient';
 import { ProductIngredient } from 'src/entities/ProductIngredient';
-import { Employee } from 'src/entities/Employee';
 import { Order } from 'src/entities/Orders';
 import { OrderProduct } from 'src/entities/OrderProduct';
 
@@ -18,7 +17,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [Product, User, Ingredient, ProductIngredient, Employee, Order, OrderProduct],
+    entities: [Product, User, Ingredient, ProductIngredient, Order, OrderProduct],
     migrations: [],
     subscribers: []
 });
