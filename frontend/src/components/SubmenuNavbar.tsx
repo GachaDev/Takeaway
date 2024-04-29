@@ -1,5 +1,5 @@
 'use client';
-import { IconMenu2 } from '@tabler/icons-react';
+import { IconMenu2, IconMenuDeep } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -13,7 +13,7 @@ export default function SubmenuNavbar({ links }: { links: { label: string; url: 
     return (
         <>
             <button onClick={toggleMenu} className="md:hidden z-20">
-                <IconMenu2 />
+                {!menuOpen ? <IconMenu2 /> : <IconMenuDeep />}
             </button>
             {menuOpen && (
                 <div className="fixed inset-0 bg-[--header] z-10">
