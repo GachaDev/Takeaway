@@ -4,9 +4,10 @@ import { IconBrandFacebook, IconBrandInstagram, IconBrandX } from '@tabler/icons
 import Link from 'next/link';
 import logo from '../../public/logo.webp';
 import Image from 'next/image';
+import SubmenuNavbar from '@/components/SubmenuNavbar';
 
 export const metadata: Metadata = {
-    title: 'Sin nombre aún'
+    title: 'MDK Burguer'
 };
 
 export default function RootLayout({
@@ -42,7 +43,8 @@ export default function RootLayout({
                             <Image alt="Logo del Burguer" src={logo} width={50} height={50} />
                         </Link>
                     </div>
-                    <ul className="flex space-x-4 gap-4 font-semibold items-center text-md">
+                    <SubmenuNavbar links={links} />
+                    <ul className="flex space-x-4 gap-4 font-semibold items-center text-md max-md:hidden">
                         {links.map((media, index) => (
                             <li key={index}>
                                 <Link href={media.url}>{media.label}</Link>
