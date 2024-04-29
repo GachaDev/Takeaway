@@ -6,3 +6,7 @@
     --header: #53924c;
     --cartel: #0c4e25;
 }
+
+.heightDefault {
+    height: calc(100vh - 116px);
+}

@@ -5,11 +5,11 @@ import Link from 'next/link';
 export default function Login() {
     async function signin(formData: FormData) {
         'use server';
-        console.log('login');
+        console.log(formData);
     }
 
     return (
-        <main className="flex flex-col h-full justify-center items-center w-full">
+        <main className="flex flex-col heightDefault justify-center items-center w-full">
             <Image
                 alt="logo"
                 className="2xl:w-[12rem] xl:w-[11rem] lg:w-[10rem] md:w-[9rem] sm:w-[8rem] w-[7rem]"
@@ -35,7 +35,7 @@ export default function Login() {
                 </div>
                 <div className="flex flex-col 2xl:w-2/6 xl:w-2/6 lg:w-2/6 md:w-3/6 sm:w-4/6 w-4/6 gap-5">
                     <label className="font-semibold" htmlFor="password">
-                        Password
+                        Contraseña
                     </label>
                     <input
                         id="password"
