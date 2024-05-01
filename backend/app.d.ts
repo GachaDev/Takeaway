@@ -18,3 +18,9 @@ interface CreateResponse {
     lastInsertId: string | number;
     affectedRows: number;
 }
+
+interface LoginResponse {
+    success: boolean;
+    userId?: number;
+    token?: string;
+}

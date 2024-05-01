@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { User } from 'src/entities/User';
 import { UsersModule } from './users.module';
@@ -7,9 +7,15 @@ import { UsersModule } from './users.module';
 export class UsersController {
     constructor(private readonly usersService: UsersModule) {}
 
-    @Get()
-    async findAll() {
-        return await this.usersService.getAll();
+    @Post('login')
+    async authLogin(@Body() user: User, @Res() res: Response) {
+        const auth = await this.usersService.login(user);
+
+        if (auth.success) {
+            res.status(HttpStatus.OK).json(auth);
+        } else {
+            res.status(HttpStatus.NOT_FOUND).json(auth);
+        }
     }
 
     @Post()

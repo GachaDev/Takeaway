@@ -1,14 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { DAO } from 'src/DAO/DAO';
+import { JwtService } from '@nestjs/jwt';
+import { UserDAO } from 'src/DAO/UserDAO';
 import { Hash } from 'src/components/utils/Hash';
 import { User } from 'src/entities/User';
+import { configJWT } from './const';
 
 @Injectable()
 export class UsersModule {
-    DAO: DAO<User> = new DAO<User>(User);
+    DAO = new UserDAO();
+    jwtService = new JwtService();
 
-    getAll(): Promise<User[]> {
-        return this.DAO.findAll();
+    async login({ email, password }: User): Promise<LoginResponse> {
+        const user = await this.DAO.findByEmail(email);
+
+        if (user) {
+            if (user.password === Hash.generate(password)) {
+                const token: string = await this.jwtService.signAsync(
+                    {
+                        id: user.id,
+                        email: user.email
+                    },
+                    configJWT
+                );
+
+                return { success: true, userId: user.id, token: token };
+            } else {
+                return { success: false };
+            }
+        }
+
+        return { success: false };
     }
 
     create(user: User): Promise<CreateResponse> {

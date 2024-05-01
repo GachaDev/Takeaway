@@ -1,11 +1,29 @@
 import Image from 'next/image';
 import logo from '../../../public/logo.webp';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { useFetch } from '@/components/utils/useFetch';
 
 export default function Login() {
     async function signin(formData: FormData) {
         'use server';
         console.log(formData);
+        const auth = await useFetch(
+            '/users/login',
+            'POST',
+            JSON.stringify({ email: formData.get('email'), password: formData.get('password') })
+        );
+        console.log(auth);
+        if (auth.status === 200) {
+            const { userId, token } = await auth.json();
+            console.log(userId);
+            cookies().set('token', token, {
+                expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 7,
+                sameSite: true,
+                httpOnly: true,
+                secure: true
+            });
+        }
     }
 
     return (
@@ -31,6 +49,7 @@ export default function Login() {
                         type="email"
                         className="focus:outline-none focus:border focus:border-neutral-400 border-neutral-200 border bg-neutral-100 rounded-lg p-2"
                         placeholder="Correo"
+                        required
                     />
                 </div>
                 <div className="flex flex-col 2xl:w-2/6 xl:w-2/6 lg:w-2/6 md:w-3/6 sm:w-4/6 w-4/6 gap-5">
@@ -43,6 +62,8 @@ export default function Login() {
                         name="password"
                         type="password"
                         placeholder="Contraseña"
+                        required
+                        minLength={8}
                     />
                 </div>
                 <button
