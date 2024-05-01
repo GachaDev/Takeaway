@@ -7,7 +7,8 @@ export default function Input({
     type,
     minLength,
     widthAssign,
-    required
+    required,
+    defaultValue
 }: {
     id: string;
     label: string;
@@ -16,6 +17,7 @@ export default function Input({
     minLength?: number;
     widthAssign?: boolean;
     required?: boolean;
+    defaultValue?: string;
 }) {
     return (
         <div
@@ -29,6 +31,7 @@ export default function Input({
             <input
                 id={id}
                 name={id}
+                defaultValue={defaultValue || undefined}
                 required={required || undefined}
                 minLength={minLength || undefined}
                 type={type}

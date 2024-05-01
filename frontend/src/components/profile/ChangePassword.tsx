@@ -1,3 +1,6 @@
+import Button from '../common/Button';
+import Input from '../common/Input';
+
 export default function ChangePassword() {
     async function savePassword(formData: FormData) {
         'use server';
@@ -20,38 +23,24 @@ export default function ChangePassword() {
         <form action={savePassword} className="flex flex-col justify-between gap-4 p-6">
             <div className="flex flex-col gap-4">
                 <h1 className="text-xl font-semibold text-center">Contraseña</h1>
-                <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="first_name">
-                        Vieja Contraseña
-                    </label>
-                    <input
-                        id="old_password"
-                        name="old_password"
-                        required
-                        minLength={2}
-                        type="password"
-                        className="focus:outline-none focus:border focus:border-neutral-400 border-neutral-200 border bg-neutral-100 rounded-lg p-2"
-                        placeholder="Contraseña"
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="first_name">
-                        Nueva Contraseña
-                    </label>
-                    <input
-                        id="password"
-                        name="password"
-                        required
-                        minLength={2}
-                        type="password"
-                        className="focus:outline-none focus:border focus:border-neutral-400 border-neutral-200 border bg-neutral-100 rounded-lg p-2"
-                        placeholder="Contraseña"
-                    />
-                </div>
+                <Input
+                    id="old_password"
+                    label="Antigua Contraseña"
+                    placeholder="Contraseña Antigua"
+                    type="password"
+                    minLength={8}
+                    required
+                />
+                <Input
+                    id="password"
+                    label="Nueva Contraseña"
+                    placeholder="Contraseña Nueva"
+                    type="password"
+                    minLength={8}
+                    required
+                />
             </div>
-            <button className="bg-[--header] font-bold text-white p-2 rounded-xl" type="submit">
-                Cambiar Contraseña
-            </button>
+            <Button style="greenLigth" text="Cambiar contraseña" />
         </form>
     );
 }

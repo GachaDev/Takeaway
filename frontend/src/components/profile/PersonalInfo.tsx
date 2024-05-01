@@ -1,3 +1,6 @@
+import Button from '../common/Button';
+import Input from '../common/Input';
+
 export default function PersonalInfo() {
     async function savePersonalInfo(formData: FormData) {
         'use server';
@@ -20,52 +23,29 @@ export default function PersonalInfo() {
         <form action={savePersonalInfo} className="flex flex-col justify-between gap-4 p-6">
             <div className="flex flex-col gap-4">
                 <h1 className="text-xl font-semibold text-center">Información personal</h1>
-                <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="first_name">
-                        Nombre
-                    </label>
-                    <input
-                        id="first_name"
-                        name="first_name"
-                        required
-                        minLength={2}
-                        type="text"
-                        className="focus:outline-none focus:border focus:border-neutral-400 border-neutral-200 border bg-neutral-100 rounded-lg p-2"
-                        placeholder="Nombre"
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="last_name">
-                        Apellidos
-                    </label>
-                    <input
-                        id="last_name"
-                        name="last_name"
-                        required
-                        minLength={2}
-                        type="text"
-                        className="focus:outline-none focus:border focus:border-neutral-400 border-neutral-200 border bg-neutral-100 rounded-lg p-2"
-                        placeholder="Apellidos"
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="phone">
-                        Teléfono
-                    </label>
-                    <input
-                        id="phone"
-                        name="phone"
-                        required
-                        minLength={2}
-                        type="tel"
-                        className="focus:outline-none focus:border focus:border-neutral-400 border-neutral-200 border bg-neutral-100 rounded-lg p-2"
-                        placeholder="Teléfono"
-                    />
-                </div>
+                <Input
+                    id="first_name"
+                    label="Nombre"
+                    placeholder="Nombre"
+                    type="text"
+                    minLength={2}
+                />
+                <Input
+                    id="last_name"
+                    label="Apellidos"
+                    placeholder="Apellidos"
+                    type="text"
+                    minLength={2}
+                />
+                <Input
+                    id="phone"
+                    label="Teléfono"
+                    placeholder="Teléfono"
+                    type="tel"
+                    minLength={9}
+                />
             </div>
-            <button className="bg-[--header] font-bold text-white p-2 rounded-xl" type="submit">
-                Guardar Cambios
-            </button>
+            <Button style="greenLigth" text="Guardar cambios" />
         </form>
     );
 }
