@@ -35,7 +35,7 @@ export default function PersonalInfo() {
                     />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="first_name">
+                    <label className="font-semibold" htmlFor="last_name">
                         Apellidos
                     </label>
                     <input
@@ -49,7 +49,7 @@ export default function PersonalInfo() {
                     />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label className="font-semibold" htmlFor="first_name">
+                    <label className="font-semibold" htmlFor="phone">
                         Teléfono
                     </label>
                     <input
