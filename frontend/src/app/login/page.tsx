@@ -3,26 +3,25 @@ import logo from '../../../public/logo.webp';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { useFetch } from '@/components/utils/useFetch';
+import { redirect } from 'next/navigation';
 
 export default function Login() {
     async function signin(formData: FormData) {
         'use server';
-        console.log(formData);
         const auth = await useFetch(
             '/users/login',
             'POST',
             JSON.stringify({ email: formData.get('email'), password: formData.get('password') })
         );
-        console.log(auth);
         if (auth.status === 200) {
-            const { userId, token } = await auth.json();
-            console.log(userId);
+            const { token } = await auth.json();
             cookies().set('token', token, {
                 expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 7,
                 sameSite: true,
                 httpOnly: true,
                 secure: true
             });
+            redirect('/profile');
         }
     }
 

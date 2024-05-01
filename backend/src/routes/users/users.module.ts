@@ -18,7 +18,8 @@ export class UsersModule {
                 const token: string = await this.jwtService.signAsync(
                     {
                         id: user.id,
-                        email: user.email
+                        email: user.email,
+                        employee: user.employee
                     },
                     configJWT
                 );

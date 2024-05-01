@@ -1,32 +1,25 @@
-'use client';
 import Image from 'next/image';
 import logo from '../../../public/logo.webp';
 import Link from 'next/link';
 import { useFetch } from '@/components/utils/useFetch';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export default async function Register() {
-    const router = useRouter();
-
     async function register(formData: FormData) {
-        try {
-            const result = await useFetch(
-                '/users',
-                'POST',
-                JSON.stringify({
-                    email: formData.get('email'),
-                    first_name: formData.get('first_name'),
-                    last_name: formData.get('last_name'),
-                    phone: formData.get('phone'),
-                    password: formData.get('password')
-                })
-            );
-            if (result.ok) {
-                router.push('/login');
-            }
-        } catch (error) {
-            console.error('Error al enviar la solicitud:', error);
-            return { ok: false };
+        'use server';
+        const result = await useFetch(
+            '/users',
+            'POST',
+            JSON.stringify({
+                email: formData.get('email'),
+                first_name: formData.get('first_name'),
+                last_name: formData.get('last_name'),
+                phone: formData.get('phone'),
+                password: formData.get('password')
+            })
+        );
+        if (result.ok) {
+            redirect('/login');
         }
     }
 

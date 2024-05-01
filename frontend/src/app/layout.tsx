@@ -24,7 +24,7 @@ export default function RootLayout({
     const links = [
         { label: 'Nuestra carta', url: '/carta' },
         { label: 'Pedido Tracker', url: '/tracker' },
-        { label: 'Mi cuenta', url: '/login' }
+        { label: 'Mi cuenta', url: '/profile' }
     ];
 
     return (
