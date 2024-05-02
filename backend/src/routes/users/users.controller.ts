@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpStatus,
+    Param,
+    Post,
+    Put,
+    Query,
+    Res
+} from '@nestjs/common';
 import { Response } from 'express';
 import { User } from 'src/entities/User';
 import { UsersModule } from './users.module';
@@ -6,6 +17,19 @@ import { UsersModule } from './users.module';
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersModule) {}
+
+    @Get('user')
+    async getUser(@Query('id') idUser: number, @Res() res: Response) {
+        let response: User;
+        if (idUser) {
+            response = await this.usersService.getUserById(idUser);
+        }
+        console.log(response);
+        if (response) {
+            return res.status(200).json(response);
+        }
+        return res.status(404).json({ message: 'User not found' });
+    }
 
     @Post('login')
     async authLogin(@Body() user: User, @Res() res: Response) {
@@ -29,6 +53,20 @@ export class UsersController {
             res.status(HttpStatus.OK).json(changedPassword);
         } else {
             res.status(HttpStatus.NOT_FOUND).json(changedPassword);
+        }
+    }
+
+    @Post('changeInfo')
+    async changeInfo(
+        @Body() body: { firstName: string; lastName: string; phone: string; userId: number },
+        @Res() res: Response
+    ) {
+        const changedInfo = await this.usersService.changeInfo(body);
+
+        if (changedInfo.success) {
+            res.status(HttpStatus.OK).json(changedInfo);
+        } else {
+            res.status(HttpStatus.NOT_FOUND).json(changedInfo);
         }
     }
 

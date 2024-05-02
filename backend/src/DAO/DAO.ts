@@ -19,10 +19,16 @@ export class DAO<T extends EntityWithId> implements CRUD<T> {
     }
 
     async findById(id: number | string, relations?: string[]): Promise<T | null> {
-        return this.repository.findOne({
+        const object = await this.repository.findOne({
             where: { id } as any,
             relations: relations || []
         });
+
+        if (!object) {
+            return null;
+        }
+
+        return plainToClass(this.repository.target as new () => T, object);
     }
 
     async create(t: T): Promise<CreateResponse> {

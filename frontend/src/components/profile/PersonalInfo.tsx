@@ -1,48 +1,58 @@
+'use client';
+import { useState } from 'react';
 import Button from '../common/Button';
-import Input from '../common/Input';
+import { toast } from 'sonner';
+import InputClient from '../common/InputClient';
 
-export default function PersonalInfo() {
-    async function savePersonalInfo(formData: FormData) {
-        'use server';
-        // const result = await useFetch(
-        //     '/users',
-        //     'POST',
-        //     JSON.stringify({
-        //         email: formData.get('email'),
-        //         first_name: formData.get('first_name'),
-        //         last_name: formData.get('last_name'),
-        //         phone: formData.get('phone'),
-        //         password: formData.get('password')
-        //     })
-        // );
-        // if (result.ok) {
-        //     redirect('/login');
-        // }
-    }
+export default function PersonalInfo({
+    savePersonalInfo,
+    infoUser
+}: {
+    savePersonalInfo(formData: FormData): Promise<boolean | undefined>;
+    infoUser: User;
+}) {
+    const [firstName, setFirstName] = useState(infoUser.first_name);
+    const [lastName, setLastName] = useState(infoUser.last_name);
+    const [phone, setPhone] = useState(infoUser.phone);
+
+    const handleSaveInfo = async (form: FormData) => {
+        const savedInfo = await savePersonalInfo(form);
+        if (savedInfo) {
+            toast.success('Información actualizada con éxito');
+        } else {
+            toast.error('Ha surgido un error');
+        }
+    };
     return (
-        <form action={savePersonalInfo} className="flex flex-col justify-between gap-4 p-6">
+        <form action={handleSaveInfo} className="flex flex-col justify-between gap-4 p-6">
             <div className="flex flex-col gap-4">
                 <h1 className="text-xl font-semibold text-center">Información personal</h1>
-                <Input
+                <InputClient
                     id="first_name"
                     label="Nombre"
                     placeholder="Nombre"
                     type="text"
                     minLength={2}
+                    value={firstName}
+                    onChange={setFirstName}
                 />
-                <Input
+                <InputClient
                     id="last_name"
                     label="Apellidos"
                     placeholder="Apellidos"
                     type="text"
                     minLength={2}
+                    value={lastName}
+                    onChange={setLastName}
                 />
-                <Input
+                <InputClient
                     id="phone"
                     label="Teléfono"
                     placeholder="Teléfono"
                     type="tel"
                     minLength={9}
+                    value={phone}
+                    onChange={setPhone}
                 />
             </div>
             <Button style="greenLigth" text="Guardar cambios" />

@@ -8,7 +8,11 @@ import { useFetch } from '@/components/utils/useFetch';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default function Profile() {
+export const revalidate = Infinity;
+export default async function Profile() {
+    const session = (await getSession()) as Session;
+    const user = await (await useFetch(`/users/user?id=${session.id}`, 'GET')).json();
+
     async function logOut() {
         'use server';
         cookies().delete('token');
@@ -17,7 +21,6 @@ export default function Profile() {
 
     async function savePassword(formData: FormData) {
         'use server';
-        const session = await getSession();
 
         if (!session || typeof session === 'boolean') {
             console.error('No se pudo obtener la sesión');
@@ -37,12 +40,34 @@ export default function Profile() {
         return result.ok;
     }
 
+    async function savePersonalInfo(formData: FormData) {
+        'use server';
+
+        if (!session || typeof session === 'boolean') {
+            console.error('No se pudo obtener la sesión');
+            return;
+        }
+
+        const result = await useFetch(
+            '/users/changeInfo',
+            'POST',
+            JSON.stringify({
+                userId: session.id,
+                firstName: formData.get('first_name'),
+                lastName: formData.get('last_name'),
+                phone: formData.get('phone')
+            })
+        );
+
+        return result.ok;
+    }
+
     return (
         <main className="p-5 w-full">
             <div className="py-5">
                 <h1 className="text-3xl text-center">Mi cuenta</h1>
                 <div className="grid sm:grid-cols-2 gap-10 justify-center mt-8">
-                    <PersonalInfo />
+                    <PersonalInfo savePersonalInfo={savePersonalInfo} infoUser={user} />
                     <ChangePassword savePassword={savePassword} />
                     <LastOrders />
                     <MyPoints />

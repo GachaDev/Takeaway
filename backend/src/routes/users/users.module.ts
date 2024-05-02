@@ -10,6 +10,12 @@ export class UsersModule {
     DAO = new UserDAO();
     jwtService = new JwtService();
 
+    async getUserById(idUser: number) {
+        const user = await this.DAO.findById(idUser);
+
+        return user;
+    }
+
     async login({ email, password }: User): Promise<LoginResponse> {
         const user = await this.DAO.findByEmail(email);
 
@@ -43,6 +49,17 @@ export class UsersModule {
         } else {
             return { success: false, message: 'Contraseña anterior incorrecta' };
         }
+    }
+
+    async changeInfo(body: { firstName: string; lastName: string; phone: string; userId: number }) {
+        const user = await this.DAO.findById(body.userId);
+
+        user.first_name = body.firstName;
+        user.last_name = body.lastName;
+        user.phone = body.phone;
+
+        await this.DAO.update(user);
+        return { success: true };
     }
 
     create(user: User): Promise<CreateResponse> {
