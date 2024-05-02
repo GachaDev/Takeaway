@@ -33,6 +33,18 @@ export class UsersModule {
         return { success: false };
     }
 
+    async changePassword(body: { oldPassword: string; newPassword: string; userId: number }) {
+        const user = await this.DAO.findById(body.userId);
+
+        if (user.password === Hash.generate(body.oldPassword)) {
+            user.password = Hash.generate(body.newPassword);
+            await this.DAO.update(user);
+            return { success: true };
+        } else {
+            return { success: false, message: 'Contraseña anterior incorrecta' };
+        }
+    }
+
     create(user: User): Promise<CreateResponse> {
         user.password = Hash.generate(user.password);
         return this.DAO.create(user);

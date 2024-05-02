@@ -5,6 +5,7 @@ import Link from 'next/link';
 import logo from '../../public/logo.webp';
 import Image from 'next/image';
 import SubmenuNavbar from '@/components/navbar/SubmenuNavbar';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
     title: 'MDK Burguer'
@@ -62,6 +63,7 @@ export default function RootLayout({
                     style={{ maxHeight: `calc(100vh - 116px)` }}
                 >
                     {children}
+                    <Toaster />
                 </main>
             </body>
         </html>

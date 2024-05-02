@@ -18,6 +18,20 @@ export class UsersController {
         }
     }
 
+    @Post('changePassword')
+    async changePassword(
+        @Body() body: { oldPassword: string; newPassword: string; userId: number },
+        @Res() res: Response
+    ) {
+        const changedPassword = await this.usersService.changePassword(body);
+
+        if (changedPassword.success) {
+            res.status(HttpStatus.OK).json(changedPassword);
+        } else {
+            res.status(HttpStatus.NOT_FOUND).json(changedPassword);
+        }
+    }
+
     @Post()
     async create(@Body() user: User) {
         return await this.usersService.create(user);
