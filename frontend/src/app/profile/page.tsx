@@ -11,7 +11,7 @@ import { redirect } from 'next/navigation';
 export const revalidate = Infinity;
 export default async function Profile() {
     const session = (await getSession()) as Session;
-    const user = await (await useFetch(`/users/user?id=${session.id}`, 'GET')).json();
+    const user = (await (await useFetch(`/users/user?id=${session.id}`, 'GET')).json()) as User;
 
     async function logOut() {
         'use server';
@@ -70,7 +70,7 @@ export default async function Profile() {
                     <PersonalInfo savePersonalInfo={savePersonalInfo} infoUser={user} />
                     <ChangePassword savePassword={savePassword} />
                     <LastOrders />
-                    <MyPoints />
+                    <MyPoints points={user.points} />
                 </div>
                 <div className="flex max-sm:flex-col justify-center gap-2 mt-16 w-full">
                     <Button handleClick={logOut} style="yellow" text="Cerrar sesión" />
