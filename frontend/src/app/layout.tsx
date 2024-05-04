@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { IconBrandFacebook, IconBrandInstagram, IconBrandX } from '@tabler/icons-react';
+import { IconBrandFacebook, IconBrandInstagram, IconBrandX, IconPhone } from '@tabler/icons-react';
 import Link from 'next/link';
 import logo from '../../public/logo.webp';
 import Image from 'next/image';
@@ -17,9 +17,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     const socialMedias = [
-        { icon: <IconBrandFacebook color="white" />, url: 'https://www.facebook.com/nada' },
-        { icon: <IconBrandInstagram color="white" />, url: 'https://www.instagram.com/nada' },
-        { icon: <IconBrandX color="white" />, url: 'https://www.twitter.com/nada' }
+        {
+            icon: <IconBrandFacebook color="white" />,
+            url: 'https://www.facebook.com/markzuckerberg'
+        },
+        {
+            icon: <IconBrandInstagram color="white" />,
+            url: 'https://www.instagram.com/MovistarKOI'
+        },
+        { icon: <IconBrandX color="white" />, url: 'https://www.x.com/MovistarKOI' }
     ];
 
     const links = [
@@ -31,12 +37,15 @@ export default function RootLayout({
         <html lang="es" className="h-full overflow-hidden">
             <body className="h-full overflow-hidden">
                 <header className="flex flex-col">
-                    <nav className="bg-[--header] p-2 flex justify-end gap-2">
+                    <nav className="bg-[--header] p-2 flex justify-end gap-2 max-sm:justify-center">
                         {socialMedias.map((media, index) => (
                             <Link key={index} href={media.url}>
                                 {media.icon}
                             </Link>
                         ))}
+                        <a href="tel:956556677" className="text-white flex gap-2 ml-2">
+                            <IconPhone color="white" /> 956 556 677
+                        </a>
                     </nav>
                     <nav className="text-black p-4 px-8 flex justify-between items-center border-b border-gray-300 shadow">
                         <div>
