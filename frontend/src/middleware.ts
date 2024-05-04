@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
         }
     }
 
-    if (path === '/profile') {
+    if (path === '/profile' || path === '/order') {
         if (!tokenValid) {
             return NextResponse.redirect(new URL('/login', request.nextUrl));
         } else {
@@ -52,5 +52,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/login', '/register', '/profile', '/admin']
+    matcher: ['/login', '/register', '/profile', '/admin', '/order']
 };
