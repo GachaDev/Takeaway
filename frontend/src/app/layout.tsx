@@ -66,10 +66,7 @@ export default function RootLayout({
                         </ul>
                     </nav>
                 </header>
-                <main
-                    className="flex-grow overflow-auto heightDefault"
-                    style={{ maxHeight: `calc(100vh - 116px)` }}
-                >
+                <main className="flex-grow overflow-auto heightDefault">
                     {children}
                     <Toaster />
                 </main>
