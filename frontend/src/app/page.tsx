@@ -3,8 +3,38 @@ import image1 from '../../public/carousel/image3.webp';
 import jamon from '../../public/jamon.webp';
 import croquetas from '../../public/croquetas.webp';
 import campero from '../../public/campero.webp';
+import bravas from '../../public/bravas.webp';
+import alitas from '../../public/alitas.webp';
+import Product from '@/components/common/Product';
 
 export default function Home() {
+    const favProducts = [
+        {
+            name: 'Bocadillo de Jamón',
+            image: jamon,
+            price: 5.99
+        },
+        {
+            name: 'Campero Malagueño',
+            image: campero,
+            price: 10.99
+        },
+        {
+            name: 'Croquetas de Jamón',
+            image: croquetas,
+            price: 9.99
+        },
+        {
+            name: 'Patatas bravas',
+            image: bravas,
+            price: 6.99
+        },
+        {
+            name: 'Alitas de Pollo',
+            image: alitas,
+            price: 5.99
+        }
+    ] as Product[];
     return (
         <div className="heightDefault">
             <main>
@@ -24,33 +54,23 @@ export default function Home() {
                         Campaña disponible solo hasta el 1 de Julio de 2024
                     </span>
                 </div>
-                <div className="flex flex-col justify-center items-center mt-8">
+                <section className="flex flex-col justify-center items-center mt-6 p-5">
                     <h2 className="font-bold text-4xl text-center max-sm:text-xl py-3 px-16 border-b border-yellow-400">
                         Productos destacados
                     </h2>
-                    <div className="grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-2 w-full py-6 items-center justify-center px-2">
-                        <div className="flex flex-col items-center justify-between gap-3 h-full">
-                            <Image alt="Bocadillo de Jamón" src={jamon} width={350} height={350} />
-                            <h2 className="text-sm 2xl:text-xl xl:text-lg lg:text-md font-medium text-center">
-                                Bocadillo de Jamón
-                            </h2>
-                        </div>
-                        <div className="flex flex-col items-center justify-between gap-3 h-full">
-                            <Image alt="Campero" src={campero} width={350} height={350} />
-                            <h2 className="text-sm 2xl:text-xl xl:text-lg lg:text-md font-medium text-center">
-                                Campero Malagueño
-                            </h2>
-                        </div>
-                        <div className="flex flex-col items-center justify-between gap-3 h-full">
-                            <Image alt="Croquetas" src={croquetas} width={350} height={350} />
-                            <h2 className="text-sm 2xl:text-xl xl:text-lg lg:text-md font-medium text-center">
-                                Croquetas de Jamón
-                            </h2>
-                        </div>
+                    <div className="grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5 w-full py-6 items-center justify-center px-2 mt-6">
+                        {favProducts.map((value, index) => (
+                            <Product
+                                key={index}
+                                name={value.name}
+                                price={value.price}
+                                image={value.image}
+                            />
+                        ))}
                     </div>
-                </div>
+                </section>
             </main>
-            <footer className="bg-yellow-500 p-5 flex justify-center items-center gap-10 mt-8">
+            <footer className="bg-yellow-500 p-5 flex justify-center items-center gap-10 mt-6">
                 <div className="flex flex-col gap-2">
                     <h1 className="text-md 2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl sm:lg font-bold text-center">
                         MDK Burguer

@@ -1,4 +1,4 @@
-type Style = 'greenDark' | 'greenLigth' | 'yellow';
+type Style = 'greenDark' | 'greenLigth' | 'yellow' | 'black';
 
 type Session = {
     id: number;
@@ -17,4 +17,10 @@ type User = {
     points: number;
     created_at: Date;
     employee: boolean;
+};
+
+type Product = {
+    name: string;
+    image: string | null | StaticImageData;
+    price: number;
 };

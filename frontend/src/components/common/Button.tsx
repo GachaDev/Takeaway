@@ -16,6 +16,8 @@ export default function Button({
             ? 'bg-[--cartel] text-white'
             : style === 'greenLigth'
             ? 'bg-[--header] text-white'
+            : style === 'black'
+            ? 'bg-white border border-black'
             : 'bg-yellow-400 text-black';
 
     const buttonType = handleClick ? 'button' : 'submit';

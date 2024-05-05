@@ -1,7 +1,7 @@
 export default function Order() {
     return (
-        <main>
-            <div>ey</div>
+        <main className="flex p-5">
+            <div>Tienda</div>
         </main>
     );
 }
