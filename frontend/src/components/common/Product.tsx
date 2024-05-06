@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Button from './Button';
 
 export default function Product({
     name,
@@ -11,7 +10,7 @@ export default function Product({
     return (
         <div className="flex flex-col items-center justify-between gap-3 h-full shadow-box p-5 rounded-lg">
             <Image
-                className="max-h-[200px] object-cover p-2"
+                className="max-h-[200px] h-full object-cover p-2"
                 alt={name}
                 src={image}
                 width={350}
@@ -25,9 +24,21 @@ export default function Product({
                     {price}€
                 </span>
             </div>
-            <div className="flex justify-center gap-2">
-                {modify && <Button style="black" text="Modificar" />}
-                {add && <Button style="greenDark" text="Añadir" />}
+            <div className="flex justify-center gap-2 px-2 w-full">
+                {modify && (
+                    <button
+                        className={`bg-white border border-black w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
+                    >
+                        <span>Modificar</span>
+                    </button>
+                )}
+                {add && (
+                    <button
+                        className={`bg-[--cartel] w-full text-white py-3 rounded-xl font-bold capitalize flex justify-center`}
+                    >
+                        <span>Añadir</span>
+                    </button>
+                )}
             </div>
         </div>
     );
