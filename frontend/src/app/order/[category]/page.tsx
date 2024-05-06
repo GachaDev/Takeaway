@@ -1,11 +1,11 @@
 import ModalOrder from '@/components/order/ModalOrder';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-import jamon from '../../../public/jamon.webp';
-import croquetas from '../../../public/croquetas.webp';
-import campero from '../../../public/campero.webp';
-import bravas from '../../../public/bravas.webp';
-import alitas from '../../../public/alitas.webp';
+import jamon from '../../../../public/jamon.webp';
+import croquetas from '../../../../public/croquetas.webp';
+import campero from '../../../../public/campero.webp';
+import bravas from '../../../../public/bravas.webp';
+import alitas from '../../../../public/alitas.webp';
 import Product from '@/components/common/Product';
 
 export default function Order() {
