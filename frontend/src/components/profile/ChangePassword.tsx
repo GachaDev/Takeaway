@@ -26,7 +26,10 @@ export default function ChangePassword({
     };
 
     return (
-        <form action={handleSavePassword} className="flex flex-col justify-between gap-4 p-6">
+        <form
+            action={handleSavePassword}
+            className="flex flex-col justify-between gap-4 p-6 shadow-box"
+        >
             <div className="flex flex-col gap-4">
                 <h1 className="text-xl font-semibold text-center">Contraseña</h1>
                 <InputClient

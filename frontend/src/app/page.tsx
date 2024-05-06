@@ -6,6 +6,7 @@ import campero from '../../public/campero.webp';
 import bravas from '../../public/bravas.webp';
 import alitas from '../../public/alitas.webp';
 import Product from '@/components/common/Product';
+import Link from 'next/link';
 
 export default function Home() {
     const favProducts = [
@@ -37,7 +38,7 @@ export default function Home() {
     ] as Product[];
     return (
         <main>
-            <div className="flex justify-center flex-col bg-[--cartel] p-8 gap-5">
+            <div className="flex justify-center items-center flex-col bg-[--cartel] p-8 gap-5">
                 <div className="flex flex-col items-center justify-center">
                     <h2 className="text-white font-bold text-md 2xl:text-4xl xl:text-3xl lg:text-2xl">
                         PRUEBA NUESTRO NUEVO
@@ -52,6 +53,9 @@ export default function Home() {
                 <span className="text-center text-neutral-300 text-[10px]">
                     Campaña disponible solo hasta el 1 de Julio de 2024
                 </span>
+                <div className="bg-yellow-500 p-3 rounded-xl flex justify-center w-max font-bold">
+                    <Link href="/order">EMPEZAR PEDIDO</Link>
+                </div>
             </div>
             <section className="flex flex-col justify-center items-center mt-6 p-5">
                 <h2 className="font-bold text-4xl text-center max-sm:text-xl py-3 px-16 border-b border-yellow-400">

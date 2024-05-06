@@ -1,5 +1,5 @@
 'use client';
-import { IconMenu2, IconMenuDeep } from '@tabler/icons-react';
+import { IconMenu2, IconMenuDeep, IconShoppingCart } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -20,12 +20,22 @@ export default function SubmenuNavbar({ links }: { links: { label: string; url: 
                     <div className="absolute top-0 right-0 bottom-0 left-0 flex justify-center items-center">
                         <ul className="flex flex-col space-y-4 text-white">
                             {links.map((link, index) => (
-                                <li key={index}>
+                                <li key={index} onClick={toggleMenu}>
                                     <Link className="font-semibold" href={link.url}>
                                         {link.label}
                                     </Link>
                                 </li>
                             ))}
+                            <li onClick={toggleMenu}>
+                                <Link className="font-semibold" href={'/order'}>
+                                    Hacer pedido
+                                </Link>
+                            </li>
+                            <li onClick={toggleMenu}>
+                                <Link className="font-semibold" href={'/carrito'}>
+                                    Carrito
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
