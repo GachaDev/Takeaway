@@ -1,55 +1,29 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { Modal, MantineProvider, Select, Input } from '@mantine/core';
+import ModalOrder from '@/components/order/ModalOrder';
 import '@mantine/core/styles.css';
-import Button from '@/components/common/Button';
+import { cookies } from 'next/headers';
 
 export default function Order() {
-    const storedOption = localStorage.getItem('pickupOption');
-    const storedAddress = localStorage.getItem('pickupAddress');
-    const [pickupOption, setPickupOption] = useState(storedOption ? storedOption : 'DOMICILIO');
-    const [pickupAddress, setPickupAddress] = useState(storedAddress ? storedAddress : '');
-    const [showModal, setShowModal] = useState(!storedOption);
-
-    const handleClick = () => {
-        if (pickupAddress.length >= 4) {
-            localStorage.setItem('pickupOption', pickupOption);
-            localStorage.setItem('pickupAddress', pickupAddress);
-            setShowModal(false);
-        }
+    const setTypeOrder = async (pickupOption: string, address: string) => {
+        'use server';
+        cookies().set('pickupOption', pickupOption, {
+            expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 365,
+            sameSite: true,
+            httpOnly: true,
+            secure: true
+        });
+        cookies().set('pickupAddress', address, {
+            expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 365,
+            sameSite: true,
+            httpOnly: true,
+            secure: true
+        });
     };
-
-    useEffect(() => {
-        if (!storedOption) {
-            setShowModal(true);
-        }
-    }, []);
-
     return (
-        <MantineProvider>
+        <>
             <main className="flex p-5">
                 <div>Tienda</div>
             </main>
-            <Modal opened={showModal} onClose={() => {}} title="¿Dónde lo quieres?" centered>
-                <div className="flex flex-col gap-4">
-                    <Select
-                        label=""
-                        placeholder="Elige una opción"
-                        defaultValue={pickupOption}
-                        data={['DOMICILIO', 'RECOGER']}
-                        value={pickupOption}
-                        onChange={value => setPickupOption(value ? value : 'DOMICILIO')}
-                    />
-                    {pickupOption === 'DOMICILIO' && (
-                        <Input
-                            placeholder="Introduce la dirección"
-                            value={pickupAddress}
-                            onChange={event => setPickupAddress(event.target.value)}
-                        />
-                    )}
-                    <Button style="greenDark" text="Empezar pedido" handleClick={handleClick} />
-                </div>
-            </Modal>
-        </MantineProvider>
+            <ModalOrder pickup={cookies().get('pickupOption')?.value} setTypeOrder={setTypeOrder} />
+        </>
     );
 }

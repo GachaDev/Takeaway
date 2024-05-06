@@ -7,6 +7,7 @@ import Image from 'next/image';
 import SubmenuNavbar from '@/components/navbar/SubmenuNavbar';
 import { Toaster } from 'sonner';
 import Cart from '@/components/cart/Cart';
+import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
     title: 'MDK Burguer'
@@ -61,7 +62,7 @@ export default function RootLayout({
                                     <Link href={media.url}>{media.label}</Link>
                                 </li>
                             ))}
-                            <Cart />
+                            <Cart storedOption={cookies().get('pickupOption')?.value} />
                         </ul>
                     </nav>
                 </header>
