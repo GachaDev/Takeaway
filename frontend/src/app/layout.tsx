@@ -6,6 +6,7 @@ import logo from '../../public/logo.webp';
 import Image from 'next/image';
 import SubmenuNavbar from '@/components/navbar/SubmenuNavbar';
 import { Toaster } from 'sonner';
+import Cart from '@/components/cart/Cart';
 
 export const metadata: Metadata = {
     title: 'MDK Burguer'
@@ -60,9 +61,7 @@ export default function RootLayout({
                                     <Link href={media.url}>{media.label}</Link>
                                 </li>
                             ))}
-                            <li className="bg-yellow-500 p-3 rounded-xl font-bold">
-                                <Link href="/order">HACER PEDIDO</Link>
-                            </li>
+                            <Cart />
                         </ul>
                     </nav>
                 </header>
