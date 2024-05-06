@@ -20,7 +20,7 @@ export default function Order() {
     };
     return (
         <>
-            <main className="flex p-5">
+            <main className="flex p-5 h-full">
                 <div>Tienda</div>
             </main>
             <ModalOrder pickup={cookies().get('pickupOption')?.value} setTypeOrder={setTypeOrder} />

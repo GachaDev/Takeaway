@@ -7,10 +7,6 @@
     --cartel: #0c4e25;
 }
 
-.heightDefault {
-    height: calc(100vh - 116px);
-}
-
 .shadow-box {
     --tw-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.012), 0 0 3px 3px rgba(0, 0, 0, 0.06);
     box-shadow: var(--tw-shadow);

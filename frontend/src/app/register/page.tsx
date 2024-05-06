@@ -24,7 +24,7 @@ export default async function Register() {
     }
 
     return (
-        <main className="flex flex-col heightDefault justify-center items-center w-full py-2">
+        <main className="flex flex-col justify-center items-center w-full py-2">
             <Image
                 alt="logo"
                 className="2xl:w-[10rem] xl:w-[9rem] lg:w-[8rem] md:w-[7rem] sm:w-[6rem] w-[5rem]"

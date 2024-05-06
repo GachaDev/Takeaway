@@ -28,7 +28,7 @@ export default function Login() {
     }
 
     return (
-        <main className="flex flex-col heightDefault justify-center items-center w-full">
+        <main className="flex flex-col justify-center items-center w-full">
             <Image
                 alt="logo"
                 className="2xl:w-[12rem] xl:w-[11rem] lg:w-[10rem] md:w-[9rem] sm:w-[8rem] w-[7rem]"

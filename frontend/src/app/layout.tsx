@@ -36,8 +36,8 @@ export default function RootLayout({
     ];
 
     return (
-        <html lang="es" className="h-full overflow-hidden">
-            <body className="h-full overflow-hidden">
+        <html lang="es">
+            <body className="h-screen flex flex-col justify-start overflow-auto">
                 <header className="flex flex-col">
                     <nav className="bg-[--header] p-2 flex justify-end gap-2 max-sm:justify-center">
                         {socialMedias.map((media, index) => (
@@ -66,10 +66,19 @@ export default function RootLayout({
                         </ul>
                     </nav>
                 </header>
-                <main className="flex-grow overflow-auto heightDefault">
-                    {children}
-                    <Toaster />
-                </main>
+                {children}
+                <footer className="bg-yellow-500 p-5 flex justify-center items-center gap-10 mt-6">
+                    <div className="flex flex-col gap-2">
+                        <h1 className="text-md 2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl sm:lg font-bold text-center">
+                            MDK Burguer
+                        </h1>
+                        <span className="text-center md:text-md text-sm font-medium">
+                            Calle Fenix Nº1, Madrid
+                        </span>
+                        <span className="text-center text-sm">© 2024</span>
+                    </div>
+                </footer>
+                <Toaster />
             </body>
         </html>
     );

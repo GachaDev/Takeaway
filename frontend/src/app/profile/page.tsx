@@ -63,7 +63,7 @@ export default async function Profile() {
     }
 
     return (
-        <main className="p-5 w-full">
+        <main className="p-5 w-full h-full">
             <div className="py-5">
                 <h1 className="text-3xl text-center">Mi cuenta</h1>
                 <div className="grid sm:grid-cols-2 gap-10 justify-center mt-8">
