@@ -29,7 +29,7 @@ export default function Product({
                     <button
                         className={`bg-white border border-black w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
                     >
-                        <span>Modificar</span>
+                        <span>Ver</span>
                     </button>
                 )}
                 {add && (
