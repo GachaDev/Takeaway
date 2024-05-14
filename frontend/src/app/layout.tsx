@@ -37,7 +37,7 @@ export default function RootLayout({
 
     return (
         <html lang="es">
-            <body className="h-screen flex flex-col justify-start overflow-auto">
+            <body className="h-screen flex flex-col justify-between overflow-auto">
                 <header className="flex flex-col">
                     <nav className="bg-[--header] p-2 flex justify-end gap-2 max-sm:justify-center">
                         {socialMedias.map((media, index) => (

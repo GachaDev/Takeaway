@@ -23,7 +23,7 @@ export default function Login() {
                 httpOnly: true,
                 secure: true
             });
-            redirect('/profile');
+            redirect('/order');
         }
     }
 

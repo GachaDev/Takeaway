@@ -16,7 +16,7 @@ const isValidToken = async (token: RequestCookie | undefined) => {
     }
 };
 
-const protectedRoutes = ['/admin'];
+const protectedRoutes = ['/admin', '/admin/ventas', '/admin/productos'];
 
 export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token');
@@ -52,5 +52,13 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/login', '/register', '/profile', '/admin', '/order']
+    matcher: [
+        '/login',
+        '/register',
+        '/profile',
+        '/admin',
+        '/order',
+        '/admin/ventas',
+        '/admin/productos'
+    ]
 };
