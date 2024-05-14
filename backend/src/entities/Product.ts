@@ -23,9 +23,12 @@ export class Product {
     image: string;
 
     @Column()
-    price_base: number;
+    price: number;
 
-    @OneToMany(() => ProductIngredient, productIngredient => productIngredient.product)
+    @OneToMany(() => ProductIngredient, productIngredient => productIngredient.product, {
+        cascade: true,
+        onDelete: 'CASCADE'
+    })
     productIngredients: ProductIngredient[];
 
     @OneToMany(() => OrderProduct, orderProduct => orderProduct.product)

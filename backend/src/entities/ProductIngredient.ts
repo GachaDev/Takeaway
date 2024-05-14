@@ -8,7 +8,7 @@ export class ProductIngredient {
     @PrimaryGeneratedColumn('identity')
     id: number;
 
-    @ManyToOne(() => Product, product => product.productIngredients, { nullable: false })
+    @ManyToOne(() => Product, product => product.productIngredients, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'product_id' })
     product: Product;
 

@@ -5,8 +5,23 @@ export default function Product({
     price,
     image,
     add = false,
-    modify = false
-}: Product & { add?: boolean; modify?: boolean }) {
+    modify = false,
+    del = false,
+    edit = false,
+    onAdd,
+    onModify,
+    onDelete,
+    onEdit
+}: Product & {
+    add?: boolean;
+    modify?: boolean;
+    del?: boolean;
+    edit?: boolean;
+    onAdd?: () => void;
+    onModify?: () => void;
+    onDelete?: () => void;
+    onEdit?: () => void;
+}) {
     return (
         <div className="flex flex-col items-center justify-between gap-3 h-full shadow-box p-5 rounded-lg">
             <Image
@@ -28,6 +43,7 @@ export default function Product({
                 {modify && (
                     <button
                         className={`bg-white border border-black w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
+                        onClick={onModify}
                     >
                         <span>Ver</span>
                     </button>
@@ -35,8 +51,25 @@ export default function Product({
                 {add && (
                     <button
                         className={`bg-[--cartel] w-full text-white py-3 rounded-xl font-bold capitalize flex justify-center`}
+                        onClick={onAdd}
                     >
                         <span>Añadir</span>
+                    </button>
+                )}
+                {edit && (
+                    <button
+                        className={`bg-[--cartel] w-full text-white py-3 rounded-xl font-bold capitalize flex justify-center`}
+                        onClick={onEdit}
+                    >
+                        <span>Editar</span>
+                    </button>
+                )}
+                {del && (
+                    <button
+                        className={`bg-white border border-black w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
+                        onClick={onDelete}
+                    >
+                        <span>Eliminar</span>
                     </button>
                 )}
             </div>

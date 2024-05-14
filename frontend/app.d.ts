@@ -20,6 +20,7 @@ type User = {
 };
 
 type Product = {
+    id: number;
     name: string;
     image: string | null | StaticImageData;
     price: number;
