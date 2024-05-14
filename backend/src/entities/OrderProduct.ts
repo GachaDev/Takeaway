@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Order } from './Orders';
 import { Product } from './Product';
+import { RemovedOrderIngredient } from './RemovedOrderIngredient';
 
 @Entity('order_products')
 export class OrderProduct {
@@ -16,6 +17,6 @@ export class OrderProduct {
     @Column({ type: 'int' })
     amount: number;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
-    price_base: number;
+    @OneToMany(() => RemovedOrderIngredient, removedIngredient => removedIngredient.orderProduct)
+    removedIngredients: RemovedOrderIngredient[];
 }

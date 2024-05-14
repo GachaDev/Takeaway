@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToMany, Column } from 'typeorm';
 import { Product } from './Product';
 
 @Entity('ingredients')

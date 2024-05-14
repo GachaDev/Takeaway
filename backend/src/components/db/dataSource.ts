@@ -6,6 +6,7 @@ import { Ingredient } from 'src/entities/Ingredient';
 import { ProductIngredient } from 'src/entities/ProductIngredient';
 import { Order } from 'src/entities/Orders';
 import { OrderProduct } from 'src/entities/OrderProduct';
+import { RemovedOrderIngredient } from 'src/entities/RemovedOrderIngredient';
 
 dotenv.config();
 export const AppDataSource = new DataSource({
@@ -17,7 +18,15 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [Product, User, Ingredient, ProductIngredient, Order, OrderProduct],
+    entities: [
+        Product,
+        User,
+        Ingredient,
+        ProductIngredient,
+        Order,
+        OrderProduct,
+        RemovedOrderIngredient
+    ],
     migrations: [],
     subscribers: []
 });
