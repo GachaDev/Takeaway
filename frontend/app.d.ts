@@ -24,4 +24,11 @@ type Product = {
     name: string;
     image: string | null | StaticImageData;
     price: number;
+    description?: string;
+    ingredients?: Ingredient[];
+};
+
+type Ingredient = {
+    id: number;
+    name: string;
 };

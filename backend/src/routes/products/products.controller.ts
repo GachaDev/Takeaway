@@ -3,6 +3,7 @@ import { ProductsModule } from './products.module';
 import { Product } from 'src/entities/Product';
 import { Response } from 'express';
 import { ProductIngredient } from 'src/entities/ProductIngredient';
+import { Ingredient } from 'src/entities/Ingredient';
 
 @Controller('products')
 export class ProductsController {
@@ -14,7 +15,7 @@ export class ProductsController {
     }
 
     @Post()
-    async create(@Body() product: Product) {
+    async create(@Body() product: Product & { ingredientsToAdd: Ingredient[] }) {
         return await this.productsService.create(product);
     }
 
