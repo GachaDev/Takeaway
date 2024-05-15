@@ -37,11 +37,31 @@ export default async function Productos() {
         }
     };
 
+    const createIngredient = async (val: string) => {
+        'use server';
+        const result = await useFetch(
+            '/ingredients',
+            'POST',
+            JSON.stringify({
+                name: val
+            })
+        );
+
+        if (result.ok) {
+            const created = await result.json();
+            revalidatePath('/admin/productos');
+            return created.lastInsertId;
+        } else {
+            return null;
+        }
+    };
+
     return (
         <main className="p-5">
             <ProductsPage
                 deleteProduct={deleteProduct}
                 createProduct={createProduct}
+                createIngredient={createIngredient}
                 products={Products}
                 ingredients={Ingredients}
             />
