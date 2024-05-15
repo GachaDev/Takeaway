@@ -41,9 +41,7 @@ export default function ProductList({
                     price={value.price}
                     image={value.image}
                     del={true}
-                    edit={true}
                     onDelete={() => delProduct(value.id)}
-                    onEdit={() => console.log('Editando', value.id)}
                 />
             ))}
         </div>
