@@ -1,16 +1,15 @@
 'use client';
 import Product from '@/components/common/Product';
-import { useState } from 'react';
 
 export default function ProductList({
-    products,
-    deleteProduct
+    allProducts,
+    deleteProduct,
+    setAllProducts
 }: {
-    products: Product[];
+    allProducts: Product[];
     deleteProduct(id: number): Promise<boolean>;
+    setAllProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }) {
-    const [allProducts, setAllProducts] = useState(products);
-
     const delProduct = (id: number) => {
         const updatedProducts = allProducts.filter(product => product.id !== id);
         setAllProducts(updatedProducts);
@@ -33,22 +32,20 @@ export default function ProductList({
             });
     };
     return (
-        <>
-            <div className="grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5 w-full py-6 items-center justify-center px-2 mt-6">
-                {allProducts.map((value, index) => (
-                    <Product
-                        key={index}
-                        id={value.id}
-                        name={value.name}
-                        price={value.price}
-                        image={value.image}
-                        del={true}
-                        edit={true}
-                        onDelete={() => delProduct(value.id)}
-                        onEdit={() => console.log('Editando', value.id)}
-                    />
-                ))}
-            </div>
-        </>
+        <div className="grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5 w-full py-6 items-center justify-center px-2 mt-6">
+            {allProducts.map((value, index) => (
+                <Product
+                    key={index}
+                    id={value.id}
+                    name={value.name}
+                    price={value.price}
+                    image={value.image}
+                    del={true}
+                    edit={true}
+                    onDelete={() => delProduct(value.id)}
+                    onEdit={() => console.log('Editando', value.id)}
+                />
+            ))}
+        </div>
     );
 }

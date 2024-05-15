@@ -1,7 +1,6 @@
 import { useFetch } from '@/components/utils/useFetch';
-import ActionsProducts from '@/components/admin/productos/ActionsProducts';
-import ProductList from '@/components/admin/productos/ProductList';
 import { revalidatePath } from 'next/cache';
+import ProductsPage from '@/components/admin/productos/ProductsPage';
 
 export const revalidate = Infinity;
 export default async function Productos() {
@@ -16,11 +15,7 @@ export default async function Productos() {
 
     return (
         <main className="p-5">
-            <div className="flex justify-between items-center">
-                <h1 className="text-xl font-semibold text-center">Gestionar Productos</h1>
-                <ActionsProducts />
-            </div>
-            <ProductList products={Products} deleteProduct={deleteProduct} />
+            <ProductsPage deleteProduct={deleteProduct} products={Products} />
         </main>
     );
 }
