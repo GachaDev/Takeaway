@@ -13,7 +13,7 @@ export default function ProductsPage({
     products: Product[];
     deleteProduct(id: number): Promise<boolean>;
     ingredients: Ingredient[];
-    createProduct(val: Product): void;
+    createProduct(val: Product): Promise<number | null>;
 }) {
     const [allProducts, setAllProducts] = useState(products);
     const [allIngredients, setAllIngredients] = useState(ingredients);

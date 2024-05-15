@@ -27,8 +27,14 @@ export default async function Productos() {
                 ingredientsToAdd: form.ingredients
             })
         );
-        console.log(result);
-        return result.ok;
+
+        if (result.ok) {
+            const createdProduct = await result.json();
+            revalidatePath('/admin/productos');
+            return createdProduct.lastInsertId;
+        } else {
+            return null;
+        }
     };
 
     return (
