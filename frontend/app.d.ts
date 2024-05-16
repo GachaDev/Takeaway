@@ -26,9 +26,16 @@ type Product = {
     price: number;
     description?: string;
     ingredients?: Ingredient[];
+    category?: Category;
 };
 
 type Ingredient = {
     id: number;
     name: string;
+};
+
+type Category = {
+    id: number;
+    name: string;
+    label: string;
 };

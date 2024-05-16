@@ -7,6 +7,7 @@ import { ProductIngredient } from 'src/entities/ProductIngredient';
 import { Order } from 'src/entities/Orders';
 import { OrderProduct } from 'src/entities/OrderProduct';
 import { RemovedOrderIngredient } from 'src/entities/RemovedOrderIngredient';
+import { Category } from 'src/entities/Category';
 
 dotenv.config();
 export const AppDataSource = new DataSource({
@@ -25,7 +26,8 @@ export const AppDataSource = new DataSource({
         ProductIngredient,
         Order,
         OrderProduct,
-        RemovedOrderIngredient
+        RemovedOrderIngredient,
+        Category
     ],
     migrations: [],
     subscribers: []

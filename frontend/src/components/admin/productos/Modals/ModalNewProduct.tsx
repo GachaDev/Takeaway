@@ -1,20 +1,22 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import Button from '@/components/common/Button';
 import InputClient from '@/components/common/InputClient';
-import { Modal, MultiSelect } from '@mantine/core';
+import { Modal, MultiSelect, Select } from '@mantine/core';
 
 interface ModalNewProductProps {
     createProduct(val: Product): void;
     open: boolean;
     close: () => void;
     allIngredients: Ingredient[];
+    categories: Category[];
 }
 
 export default function ModalNewProduct({
     open,
     close,
     allIngredients,
-    createProduct
+    createProduct,
+    categories
 }: ModalNewProductProps) {
     const [formData, setFormData] = useState<Product>({
         id: 0,
@@ -22,7 +24,8 @@ export default function ModalNewProduct({
         description: '',
         image: '',
         price: 0,
-        ingredients: [] as Ingredient[]
+        ingredients: [],
+        category: undefined
     });
 
     const handleChange = (name: string, value: string) => {
@@ -40,6 +43,21 @@ export default function ModalNewProduct({
             ...formData,
             ingredients: selected
         });
+    };
+
+    const handleCategoryChange = (value: string | null) => {
+        if (value) {
+            const selected = categories.find(category => category.id.toString() === value);
+            setFormData({
+                ...formData,
+                category: selected
+            });
+        } else {
+            setFormData({
+                ...formData,
+                category: undefined
+            });
+        }
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -103,6 +121,18 @@ export default function ModalNewProduct({
                         onChange={handleIngredientChange}
                         searchable
                     />
+                    <Select
+                        label="Categoria"
+                        placeholder="Selecciona la categoría"
+                        data={categories.map(category => ({
+                            value: category.id.toString(),
+                            label: category.label
+                        }))}
+                        value={formData.category ? formData.category.id.toString() : ''}
+                        onChange={handleCategoryChange}
+                        searchable
+                    />
+
                     <Button style="yellow" text="Crear producto" />
                 </div>
             </form>

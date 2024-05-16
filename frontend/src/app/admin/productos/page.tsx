@@ -6,6 +6,7 @@ export const revalidate = Infinity;
 export default async function Productos() {
     const Products = (await (await useFetch(`/products`, 'GET')).json()) as Product[];
     const Ingredients = (await (await useFetch(`/ingredients`, 'GET')).json()) as Ingredient[];
+    const Categories = (await (await useFetch(`/categories`, 'GET')).json()) as Category[];
 
     const deleteProduct = async (id: number) => {
         'use server';
@@ -24,7 +25,8 @@ export default async function Productos() {
                 description: form.description,
                 image: form.image,
                 price: form.price,
-                ingredientsToAdd: form.ingredients
+                ingredientsToAdd: form.ingredients,
+                category: form.category?.id
             })
         );
 
@@ -64,6 +66,7 @@ export default async function Productos() {
                 createIngredient={createIngredient}
                 products={Products}
                 ingredients={Ingredients}
+                categories={Categories}
             />
         </main>
     );

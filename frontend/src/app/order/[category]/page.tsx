@@ -1,106 +1,14 @@
 import ModalOrder from '@/components/order/ModalOrder';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-import jamon from '../../../../public/jamon.webp';
-import croquetas from '../../../../public/croquetas.webp';
-import campero from '../../../../public/campero.webp';
-import bravas from '../../../../public/bravas.webp';
-import alitas from '../../../../public/alitas.webp';
-import Product from '@/components/common/Product';
 
-export default function Order() {
-    const favProducts = [
-        {
-            name: 'Bocadillo de Jamón',
-            image: jamon,
-            price: 5.99
-        },
-        {
-            name: 'Campero Malagueño',
-            image: campero,
-            price: 10.99
-        },
-        {
-            name: 'Croquetas de Jamón',
-            image: croquetas,
-            price: 9.99
-        },
-        {
-            name: 'Patatas bravas',
-            image: bravas,
-            price: 6.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        },
-        {
-            name: 'Alitas de Pollo',
-            image: alitas,
-            price: 5.99
-        }
-    ] as Product[];
+import Product from '@/components/common/Product';
+import { useFetch } from '@/components/utils/useFetch';
+import Link from 'next/link';
+
+export default async function Order({ params }: { params: { category: string } }) {
+    const Products = (await (await useFetch(`/products`, 'GET')).json()) as Product[];
+    const Categories = (await (await useFetch(`/categories`, 'GET')).json()) as Category[];
 
     const setTypeOrder = async (pickupOption: string, address: string) => {
         'use server';
@@ -117,13 +25,44 @@ export default function Order() {
             secure: true
         });
     };
+
+    const filteredProducts = params.category
+        ? Products.filter(product => product.category?.name === params.category)
+        : Products;
+
     return (
         <>
-            <main className="flex p-5">
+            <main className="flex flex-col p-5">
+                <div className="flex overflow-x-auto w-full gap-2 items-center">
+                    <Link
+                        href={'/order'}
+                        className={`text-xl ${
+                            !params.category
+                                ? 'bg-[--cartel] text-white'
+                                : 'bg-[--header] text-white'
+                        } rounded-full font-semibold px-4 py-2`}
+                    >
+                        <span className={'text-center'}>Todo</span>
+                    </Link>
+                    {Categories.map((value, index) => (
+                        <Link
+                            href={'/order/' + value.name}
+                            key={index}
+                            className={`text-xl ${
+                                params.category === value.name
+                                    ? 'bg-[--cartel] text-white'
+                                    : 'bg-[--header] text-white'
+                            } rounded-full font-semibold px-4 py-2`}
+                        >
+                            <span className={'text-center'}>{value.label}</span>
+                        </Link>
+                    ))}
+                </div>
                 <div className="grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5 w-full py-6 items-center justify-center px-2 mt-6">
-                    {favProducts.map((value, index) => (
+                    {filteredProducts.map((value, index) => (
                         <Product
                             key={index}
+                            id={value.id}
                             name={value.name}
                             price={value.price}
                             image={value.image}

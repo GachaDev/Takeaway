@@ -15,7 +15,11 @@ export class ProductsModule {
     }
 
     getAll(): Promise<Product[]> {
-        return this.productDAO.findAll(['productIngredients', 'productIngredients.ingredient']);
+        return this.productDAO.findAll([
+            'productIngredients',
+            'productIngredients.ingredient',
+            'category'
+        ]);
     }
 
     async create(product: Product & { ingredientsToAdd: Ingredient[] }): Promise<CreateResponse> {

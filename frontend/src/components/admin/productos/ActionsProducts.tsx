@@ -8,7 +8,8 @@ export default function ActionsProducts({
     allIngredients,
     setAllIngredients,
     createProduct,
-    createIngredient
+    createIngredient,
+    categories
 }: {
     allProducts: Product[];
     setAllProducts: React.Dispatch<React.SetStateAction<Product[]>>;
@@ -16,6 +17,7 @@ export default function ActionsProducts({
     setAllIngredients: React.Dispatch<React.SetStateAction<Ingredient[]>>;
     createProduct(val: Product): Promise<number | null>;
     createIngredient(val: string): Promise<number | null>;
+    categories: Category[];
 }) {
     const [modalNewProduct, setModalNewProduct] = useState(false);
     const [modalNewIngredient, setModalNewIngredient] = useState(false);
@@ -50,7 +52,7 @@ export default function ActionsProducts({
 
     return (
         <>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap justify-end gap-2">
                 <button
                     onClick={() => {
                         setModalNewProduct(true);
@@ -67,6 +69,14 @@ export default function ActionsProducts({
                 >
                     <span>Nuevo Ingrediente</span>
                 </button>
+                <button
+                    onClick={() => {
+                        setModalNewIngredient(true);
+                    }}
+                    className={`bg-white border border-black p-3 rounded-xl font-bold capitalize flex justify-center`}
+                >
+                    <span>Nueva Categoría</span>
+                </button>
             </div>
             <ModalNewProduct
                 close={() => {
@@ -75,6 +85,7 @@ export default function ActionsProducts({
                 allIngredients={allIngredients}
                 open={modalNewProduct}
                 createProduct={handleCreateProduct}
+                categories={categories}
             />
             <ModalNewIngredient
                 close={() => {

@@ -9,13 +9,15 @@ export default function ProductsPage({
     deleteProduct,
     ingredients,
     createProduct,
-    createIngredient
+    createIngredient,
+    categories
 }: {
     products: Product[];
     deleteProduct(id: number): Promise<boolean>;
     ingredients: Ingredient[];
     createProduct(val: Product): Promise<number | null>;
     createIngredient(val: string): Promise<number | null>;
+    categories: Category[];
 }) {
     const [allProducts, setAllProducts] = useState(products);
     const [allIngredients, setAllIngredients] = useState(ingredients);
@@ -31,6 +33,7 @@ export default function ProductsPage({
                     setAllIngredients={setAllIngredients}
                     createProduct={createProduct}
                     createIngredient={createIngredient}
+                    categories={categories}
                 />
             </div>
             <ProductList
