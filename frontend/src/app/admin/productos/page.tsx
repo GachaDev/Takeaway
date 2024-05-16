@@ -12,6 +12,7 @@ export default async function Productos() {
         'use server';
         const result = await useFetch('/products/' + id, 'DELETE');
         revalidatePath('/admin/productos');
+        revalidatePath('/order');
         return result.ok;
     };
 
@@ -33,6 +34,7 @@ export default async function Productos() {
         if (result.ok) {
             const createdProduct = await result.json();
             revalidatePath('/admin/productos');
+            revalidatePath('/order');
             return createdProduct.lastInsertId;
         } else {
             return null;
@@ -52,6 +54,28 @@ export default async function Productos() {
         if (result.ok) {
             const created = await result.json();
             revalidatePath('/admin/productos');
+            revalidatePath('/order');
+            return created.lastInsertId;
+        } else {
+            return null;
+        }
+    };
+
+    const createCategory = async (name: string, label: string) => {
+        'use server';
+        const result = await useFetch(
+            '/categories',
+            'POST',
+            JSON.stringify({
+                name: name,
+                label: label
+            })
+        );
+
+        if (result.ok) {
+            const created = await result.json();
+            revalidatePath('/admin/productos');
+            revalidatePath('/order');
             return created.lastInsertId;
         } else {
             return null;
@@ -64,6 +88,7 @@ export default async function Productos() {
                 deleteProduct={deleteProduct}
                 createProduct={createProduct}
                 createIngredient={createIngredient}
+                createCategory={createCategory}
                 products={Products}
                 ingredients={Ingredients}
                 categories={Categories}

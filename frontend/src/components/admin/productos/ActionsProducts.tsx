@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ModalNewProduct from './Modals/ModalNewProduct';
 import ModalNewIngredient from './Modals/ModalNewIngredient';
+import ModalNewCategory from './Modals/ModalNewCategory';
 
 export default function ActionsProducts({
     allProducts,
@@ -9,18 +10,23 @@ export default function ActionsProducts({
     setAllIngredients,
     createProduct,
     createIngredient,
-    categories
+    categories,
+    createCategory,
+    setCategories
 }: {
     allProducts: Product[];
     setAllProducts: React.Dispatch<React.SetStateAction<Product[]>>;
     allIngredients: Ingredient[];
     setAllIngredients: React.Dispatch<React.SetStateAction<Ingredient[]>>;
+    setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
     createProduct(val: Product): Promise<number | null>;
     createIngredient(val: string): Promise<number | null>;
     categories: Category[];
+    createCategory(val: string, val2: string): Promise<number | null>;
 }) {
     const [modalNewProduct, setModalNewProduct] = useState(false);
     const [modalNewIngredient, setModalNewIngredient] = useState(false);
+    const [modalNewCategory, setModalNewCategory] = useState(false);
 
     const handleCreateProduct = async (product: Product) => {
         try {
@@ -43,10 +49,23 @@ export default function ActionsProducts({
             if (newId !== null) {
                 setAllIngredients(prev => [...prev, { id: newId, name: val }]);
             } else {
-                console.error('Failed to create product');
+                console.error('Failed to create ingredient');
             }
         } catch (error) {
-            console.error('Error creating product:', error);
+            console.error('Error creating ingredient:', error);
+        }
+    };
+
+    const handleCreateCategory = async (name: string, label: string) => {
+        try {
+            const newId = await createCategory(name, label);
+            if (newId !== null) {
+                setCategories(prev => [...prev, { id: newId, name: name, label: label }]);
+            } else {
+                console.error('Failed to create category');
+            }
+        } catch (error) {
+            console.error('Error creating category:', error);
         }
     };
 
@@ -71,7 +90,7 @@ export default function ActionsProducts({
                 </button>
                 <button
                     onClick={() => {
-                        setModalNewIngredient(true);
+                        setModalNewCategory(true);
                     }}
                     className={`bg-white border border-black p-3 rounded-xl font-bold capitalize flex justify-center`}
                 >
@@ -86,6 +105,13 @@ export default function ActionsProducts({
                 open={modalNewProduct}
                 createProduct={handleCreateProduct}
                 categories={categories}
+            />
+            <ModalNewCategory
+                close={() => {
+                    setModalNewCategory(false);
+                }}
+                createCategory={handleCreateCategory}
+                open={modalNewCategory}
             />
             <ModalNewIngredient
                 close={() => {
