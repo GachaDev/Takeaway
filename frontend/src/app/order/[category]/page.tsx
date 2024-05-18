@@ -7,8 +7,12 @@ import { useFetch } from '@/components/utils/useFetch';
 import Link from 'next/link';
 
 export default async function Order({ params }: { params: { category: string } }) {
-    const Products = (await (await useFetch(`/products`, 'GET')).json()) as Product[];
-    const Categories = (await (await useFetch(`/categories`, 'GET')).json()) as Category[];
+    const Products = (await (
+        await useFetch(`/products`, 'GET', '', ['products'])
+    ).json()) as Product[];
+    const Categories = (await (
+        await useFetch(`/categories`, 'GET', '', ['categories'])
+    ).json()) as Category[];
 
     const setTypeOrder = async (pickupOption: string, address: string) => {
         'use server';

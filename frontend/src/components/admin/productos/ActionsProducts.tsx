@@ -92,7 +92,7 @@ export default function ActionsProducts({
                     onClick={() => {
                         setModalNewCategory(true);
                     }}
-                    className={`bg-white border border-black p-3 rounded-xl font-bold capitalize flex justify-center`}
+                    className={`border border-[--cartel]  text-yellow-900 p-3 rounded-xl font-bold capitalize flex justify-center`}
                 >
                     <span>Nueva Categoría</span>
                 </button>

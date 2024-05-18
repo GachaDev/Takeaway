@@ -1,12 +1,18 @@
 import { useFetch } from '@/components/utils/useFetch';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import ProductsPage from '@/components/admin/productos/ProductsPage';
 
 export const revalidate = Infinity;
 export default async function Productos() {
-    const Products = (await (await useFetch(`/products`, 'GET')).json()) as Product[];
-    const Ingredients = (await (await useFetch(`/ingredients`, 'GET')).json()) as Ingredient[];
-    const Categories = (await (await useFetch(`/categories`, 'GET')).json()) as Category[];
+    const Products = (await (
+        await useFetch(`/products`, 'GET', '', ['products'])
+    ).json()) as Product[];
+    const Ingredients = (await (
+        await useFetch(`/ingredients`, 'GET', '', ['ingredients'])
+    ).json()) as Ingredient[];
+    const Categories = (await (
+        await useFetch(`/categories`, 'GET', '', ['categories'])
+    ).json()) as Category[];
 
     const deleteProduct = async (id: number) => {
         'use server';
@@ -33,8 +39,7 @@ export default async function Productos() {
 
         if (result.ok) {
             const createdProduct = await result.json();
-            revalidatePath('/admin/productos');
-            revalidatePath('/order');
+            revalidateTag('products');
             return createdProduct.lastInsertId;
         } else {
             return null;
@@ -53,8 +58,7 @@ export default async function Productos() {
 
         if (result.ok) {
             const created = await result.json();
-            revalidatePath('/admin/productos');
-            revalidatePath('/order');
+            revalidateTag('ingredients');
             return created.lastInsertId;
         } else {
             return null;
@@ -74,8 +78,7 @@ export default async function Productos() {
 
         if (result.ok) {
             const created = await result.json();
-            revalidatePath('/admin/productos');
-            revalidatePath('/order');
+            revalidateTag('categories');
             return created.lastInsertId;
         } else {
             return null;
