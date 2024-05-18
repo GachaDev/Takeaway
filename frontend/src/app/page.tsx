@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import image1 from '../../public/carousel/image3.webp';
 import Product from '@/components/common/Product';
-import Link from 'next/link';
 import { useFetch } from '@/components/utils/useFetch';
 
 export default async function Home() {
