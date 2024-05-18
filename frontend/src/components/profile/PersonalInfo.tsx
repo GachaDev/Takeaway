@@ -58,7 +58,7 @@ export default function PersonalInfo({
                     onChange={setPhone}
                 />
             </div>
-            <Button style="greenLigth" text="Guardar cambios" />
+            <Button style="greenDark" text="Guardar cambios" />
         </form>
     );
 }

@@ -53,7 +53,7 @@ export default function ChangePassword({
                     onChange={setNewPassword}
                 />
             </div>
-            <Button style="greenLigth" text="Cambiar contraseña" />
+            <Button style="greenDark" text="Cambiar contraseña" />
         </form>
     );
 }

@@ -73,7 +73,7 @@ export default async function Profile() {
                     <MyPoints points={user.points} />
                 </div>
                 <div className="flex max-sm:flex-col justify-center gap-2 mt-16 w-full">
-                    <Button handleClick={logOut} style="black" text="Cerrar sesión" />
+                    <Button handleClick={logOut} style="greenLigth" text="Cerrar sesión" />
                 </div>
             </div>
         </main>
