@@ -1,4 +1,4 @@
-type Style = 'greenDark' | 'greenLigth' | 'yellow' | 'black';
+type Style = 'greenDark' | 'greenLigth' | 'brown' | 'black';
 
 type Session = {
     id: number;

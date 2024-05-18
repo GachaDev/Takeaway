@@ -37,7 +37,7 @@ export default function ModalNewIngredient({
                         minLength={2}
                         required
                     />
-                    <Button style="yellow" text="Crear ingrediente" />
+                    <Button style="brown" text="Crear ingrediente" />
                 </div>
             </form>
         </Modal>

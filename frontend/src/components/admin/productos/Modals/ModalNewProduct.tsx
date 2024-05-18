@@ -133,7 +133,7 @@ export default function ModalNewProduct({
                         searchable
                     />
 
-                    <Button style="yellow" text="Crear producto" />
+                    <Button style="brown" text="Crear producto" />
                 </div>
             </form>
         </Modal>

@@ -45,7 +45,7 @@ export default function ModalNewCategory({ open, close, createCategory }: ModalN
                         minLength={2}
                         required
                     />
-                    <Button style="yellow" text="Crear Categoría" />
+                    <Button style="brown" text="Crear Categoría" />
                 </div>
             </form>
         </Modal>

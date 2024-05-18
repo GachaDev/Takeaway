@@ -6,7 +6,7 @@ import Product from '@/components/common/Product';
 import { useFetch } from '@/components/utils/useFetch';
 import Link from 'next/link';
 
-export default async function Order({ params }: { params: { category: string } }) {
+export default async function Order() {
     const Products = (await (await useFetch(`/products`, 'GET')).json()) as Product[];
     const Categories = (await (await useFetch(`/categories`, 'GET')).json()) as Category[];
 
@@ -26,19 +26,13 @@ export default async function Order({ params }: { params: { category: string } }
         });
     };
 
-    console.log(Categories);
-
     return (
         <>
             <main className="flex flex-col p-5">
                 <div className="flex overflow-x-auto w-full gap-2 items-center">
                     <Link
                         href={'/order'}
-                        className={`text-xl ${
-                            !params.category
-                                ? 'bg-[--cartel] text-white'
-                                : 'bg-[--header] text-white'
-                        } rounded-full font-semibold px-4 py-2`}
+                        className={`text-lg bg-[--header] text-white rounded-xl font-semibold px-4 py-2`}
                     >
                         <span className={'text-center'}>Todo</span>
                     </Link>
@@ -46,11 +40,7 @@ export default async function Order({ params }: { params: { category: string } }
                         <Link
                             href={'/order/' + value.name}
                             key={index}
-                            className={`text-xl ${
-                                params.category === value.name
-                                    ? 'bg-[--cartel] text-white'
-                                    : 'bg-[--header] text-white'
-                            } rounded-full font-semibold px-4 py-2`}
+                            className={`text-lg rounded-xl font-semibold px-4 py-2`}
                         >
                             <span className={'text-center'}>{value.label}</span>
                         </Link>

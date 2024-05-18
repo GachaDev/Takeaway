@@ -1,5 +1,5 @@
 'use client';
-import { IconMenu2, IconMenuDeep, IconShoppingCart } from '@tabler/icons-react';
+import { IconMenu2, IconMenuDeep } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useState } from 'react';
 

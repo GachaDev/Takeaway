@@ -39,15 +39,7 @@ export default function Product({
                     {price}€
                 </span>
             </div>
-            <div className="flex justify-center gap-2 px-2 w-full">
-                {modify && (
-                    <button
-                        className={`bg-white border border-black w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
-                        onClick={onModify}
-                    >
-                        <span>Ver</span>
-                    </button>
-                )}
+            <div className="flex justify-center gap-2 w-full">
                 {add && (
                     <button
                         className={`bg-[--cartel] w-full text-white py-3 rounded-xl font-bold capitalize flex justify-center`}
@@ -66,7 +58,7 @@ export default function Product({
                 )}
                 {del && (
                     <button
-                        className={`bg-white border border-black w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
+                        className={`bg-[--header] text-white w-full py-3 rounded-xl font-bold capitalize flex justify-center`}
                         onClick={onDelete}
                     >
                         <span>Eliminar</span>

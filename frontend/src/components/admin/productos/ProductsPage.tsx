@@ -27,8 +27,7 @@ export default function ProductsPage({
 
     return (
         <div>
-            <div className="flex justify-between items-center">
-                <h1 className="text-xl font-semibold text-center">Gestionar Productos</h1>
+            <div className="flex justify-end max-sm:justify-center items-center">
                 <ActionsProducts
                     allProducts={allProducts}
                     setAllProducts={setAllProducts}

@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-    --header: #53924c;
-    --cartel: #0c4e25;
+    --header: #4c392c;
+    --cartel: rgb(97, 61, 37);
 }
 
 .shadow-box {

@@ -18,7 +18,7 @@ export default function Button({
             ? 'bg-[--header] text-white'
             : style === 'black'
             ? 'bg-white border border-black'
-            : 'bg-yellow-400 text-black';
+            : 'bg-[--cartel] text-white';
 
     const buttonType = handleClick ? 'button' : 'submit';
     const additionalWidthClass = widthAssign
