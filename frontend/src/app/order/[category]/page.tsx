@@ -1,10 +1,10 @@
 import ModalOrder from '@/components/order/ModalOrder';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-
-import Product from '@/components/common/Product';
 import { useFetch } from '@/components/utils/useFetch';
 import Link from 'next/link';
+import AllProducts from '@/components/order/Products';
+import { handleAddToCart } from '@/components/common/AddToCart';
 
 export default async function Order({ params }: { params: { category: string } }) {
     const Products = (await (
@@ -56,19 +56,7 @@ export default async function Order({ params }: { params: { category: string } }
                         </Link>
                     ))}
                 </div>
-                <div className="grid grid-cols-5 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5 w-full py-6 items-center justify-center px-2 mt-6">
-                    {filteredProducts.map((value, index) => (
-                        <Product
-                            key={index}
-                            id={value.id}
-                            name={value.name}
-                            price={value.price}
-                            image={value.image}
-                            add
-                            modify
-                        />
-                    ))}
-                </div>
+                <AllProducts products={filteredProducts} handleAddToCart={handleAddToCart} />
             </main>
             <ModalOrder pickup={cookies().get('pickupOption')?.value} setTypeOrder={setTypeOrder} />
         </>

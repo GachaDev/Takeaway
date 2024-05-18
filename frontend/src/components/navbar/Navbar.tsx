@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import logo from '../../../public/logo.webp';
-import Cart from '@/components/cart/Cart';
+import Cart from '@/components/navbar/cart/Cart';
 import SubmenuNavbar from './SubmenuNavbar';
 
 export default function Navbar() {
