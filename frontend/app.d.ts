@@ -25,6 +25,7 @@ type Product = {
     price: number;
     description?: string;
     ingredients?: Ingredient[];
+    productIngredients?: { id: number; can_remove: boolean; ingredient: Ingredient }[];
     category?: Category;
 };
 
@@ -43,3 +44,7 @@ type CartProduct = {
     id: number;
     quantity: number;
 };
+
+interface IngredientState {
+    [key: string]: boolean;
+}

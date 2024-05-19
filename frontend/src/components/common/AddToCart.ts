@@ -6,14 +6,33 @@ export const handleAddToCart = async (product: Product) => {
 
     let cartProducts = cart ? JSON.parse(cart) : [];
 
+    let ingredientsRemoved = [] as { id: number }[];
+    if (product.productIngredients) {
+        product.productIngredients.forEach(value => {
+            if (!value.can_remove) {
+                ingredientsRemoved.push({ id: value.id });
+            }
+        });
+    }
+
+    const compareIngredients = (a: { id: number }[], b: { id: number }[]) => {
+        if (a.length !== b.length) return false;
+        return a.every((ingredientA, index) => ingredientA.id === b[index].id);
+    };
+
     const existingProductIndex = cartProducts.findIndex(
-        (cartProduct: { id: number }) => cartProduct.id === product.id
+        (cartProduct: { id: number; ingredientsRemoved: { id: number }[] }) => {
+            return (
+                cartProduct.id === product.id &&
+                compareIngredients(cartProduct.ingredientsRemoved, ingredientsRemoved)
+            );
+        }
     );
 
     if (existingProductIndex !== -1) {
         cartProducts[existingProductIndex].quantity += 1;
     } else {
-        cartProducts.push({ id: product.id, quantity: 1 });
+        cartProducts.push({ id: product.id, quantity: 1, ingredientsRemoved });
     }
 
     cookies().set('cart', JSON.stringify(cartProducts), {
