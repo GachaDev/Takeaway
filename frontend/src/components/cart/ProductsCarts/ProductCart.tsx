@@ -23,7 +23,7 @@ export default function ProductCart({
         handleAddToCart({ id, quantity } as CartProduct);
     };
     return (
-        <div className="flex items-center justify-start rounded-lg px-10 w-full">
+        <div className="flex items-center justify-start rounded-lg w-full">
             <Image
                 className="max-h-[200px] h-full object-cover p-2"
                 alt={product.name}

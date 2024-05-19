@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { cookies } from 'next/headers';
 
 const isValidToken = async (token: RequestCookie | undefined) => {
     try {
@@ -40,6 +41,17 @@ export async function middleware(request: NextRequest) {
         }
     }
 
+    if (path === 'cart') {
+        if (!tokenValid) {
+            return NextResponse.redirect(new URL('/login', request.nextUrl));
+        }
+        if (cookies().get('pickupOption')?.value) {
+            return NextResponse.next();
+        } else {
+            return NextResponse.redirect(new URL('/order', request.nextUrl));
+        }
+    }
+
     if (isProtectedRoute && tokenValid && tokenValid.employee) {
         return NextResponse.next();
     } else {
@@ -59,6 +71,7 @@ export const config = {
         '/admin',
         '/order',
         '/admin/ventas',
-        '/admin/productos'
+        '/admin/productos',
+        '/cart'
     ]
 };
