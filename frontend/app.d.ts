@@ -38,3 +38,8 @@ type Category = {
     name: string;
     label: string;
 };
+
+type CartProduct = {
+    id: number;
+    quantity: number;
+};

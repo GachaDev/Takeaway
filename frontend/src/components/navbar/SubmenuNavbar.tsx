@@ -32,7 +32,7 @@ export default function SubmenuNavbar({ links }: { links: { label: string; url: 
                                 </Link>
                             </li>
                             <li onClick={toggleMenu}>
-                                <Link className="font-semibold" href={'/carrito'}>
+                                <Link className="font-semibold" href={'/cart'}>
                                     Carrito
                                 </Link>
                             </li>

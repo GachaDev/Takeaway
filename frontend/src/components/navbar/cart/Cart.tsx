@@ -9,9 +9,9 @@ export default function Cart({ storedOption }: { storedOption: string | undefine
                     <div className="bg-[#f4dfbf] p-3 rounded-xl text-yellow-900 flex justify-center w-max font-bold">
                         <Link href="/order">EMPEZAR PEDIDO</Link>
                     </div>
-                    <button>
+                    <Link href="/cart">
                         <IconShoppingCart />
-                    </button>
+                    </Link>
                 </div>
             ) : (
                 <div className="bg-[#f4dfbf] p-3 rounded-xl text-yellow-900 flex justify-center w-max font-bold">
