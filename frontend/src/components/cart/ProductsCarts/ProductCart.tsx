@@ -11,17 +11,22 @@ export default function ProductCart({
     quantity,
     product,
     handleAddToCart,
-    handleRemoveFromCart
+    handleRemoveFromCart,
+    ingredients,
+    ingredientsRemoved
 }: {
     id: number;
     quantity: number;
     product: Product;
     handleAddToCart: (product: CartProduct) => void;
     handleRemoveFromCart: (product: CartProduct) => void;
+    ingredients: Ingredient[];
+    ingredientsRemoved: { id: number }[];
 }) {
     const handleClickAddToCart = () => {
         handleAddToCart({ id, quantity } as CartProduct);
     };
+
     return (
         <div className="flex items-center justify-start rounded-lg w-full">
             <Image
@@ -33,7 +38,27 @@ export default function ProductCart({
             />
             <div className="flex flex-col p-2 w-full">
                 <span className="font-bold">{product.name}</span>
-                <div className="flex justify-between items-center gap-2">
+
+                {ingredientsRemoved.length >= 1 && (
+                    <div className="flex gap-2 mt-2">
+                        <span className="font-bold">Ingredientes eliminados:</span>
+
+                        {ingredientsRemoved.map((removedIngredient, key) => {
+                            const ingredient = product.productIngredients?.find(
+                                ingredient => ingredient.id === removedIngredient.id
+                            );
+                            return (
+                                ingredient && (
+                                    <span key={removedIngredient.id}>
+                                        {ingredient.ingredient.name}
+                                        {key !== ingredientsRemoved.length - 1 && ', '}
+                                    </span>
+                                )
+                            );
+                        })}
+                    </div>
+                )}
+                <div className="flex justify-between items-center gap-2 mt-2">
                     <span>{product.price}€</span>
                     <div className="flex justify-between gap-2">
                         <button onClick={handleClickAddToCart}>

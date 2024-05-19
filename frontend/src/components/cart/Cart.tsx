@@ -18,6 +18,7 @@ const paymentMethodLabels = {
 
 export default function Cart({
     Products,
+    Ingredients,
     cartProducts,
     handleAddToCart,
     handleRemoveFromCart,
@@ -26,6 +27,7 @@ export default function Cart({
     finishOrder
 }: {
     Products: Product[];
+    Ingredients: Ingredient[];
     cartProducts: CartProduct[];
     handleAddToCart: (product: Product) => void;
     pickupOption: string | undefined;
@@ -146,6 +148,7 @@ export default function Cart({
             <ProductsCarts
                 cartProducts={cartProducts}
                 Products={Products}
+                Ingredients={Ingredients}
                 addToCart={handleAddToCart}
                 removeFromCart={handleRemoveFromCart}
                 finishOrder={handleFinishOrder}

@@ -9,6 +9,9 @@ export default async function CartPage() {
     const Products = (await (
         await useFetch(`/products`, 'GET', '', ['products'])
     ).json()) as Product[];
+    const Ingredients = (await (
+        await useFetch(`/ingredients`, 'GET', '', ['ingredients'])
+    ).json()) as Ingredient[];
     const cart = cookies().get('cart')?.value;
     let cartProducts = cart ? JSON.parse(cart) : [];
 
@@ -45,6 +48,7 @@ export default async function CartPage() {
                 <h1 className="text-center text-xl font-bold">Confirmar compra</h1>
                 <Cart
                     Products={Products}
+                    Ingredients={Ingredients}
                     cartProducts={cartProducts}
                     handleAddToCart={handleAddToCart}
                     handleRemoveFromCart={handleRemoveFromCart}

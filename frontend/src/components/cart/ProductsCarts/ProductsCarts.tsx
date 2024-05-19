@@ -6,17 +6,21 @@ import Button from '@/components/common/Button';
 export default function ProductsCarts({
     cartProducts,
     Products,
+    Ingredients,
     addToCart,
     removeFromCart,
     finishOrder
 }: {
     cartProducts: CartProduct[];
     Products: Product[];
+    Ingredients: Ingredient[];
     addToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
     finishOrder: () => void;
 }) {
     const [allCartProducts, setAllCartProducts] = useState<CartProduct[]>([...cartProducts]);
+
+    console.log(allCartProducts);
 
     const handleClickAddToCart = async (value: Product) => {
         addToCart(value);
@@ -46,24 +50,33 @@ export default function ProductsCarts({
 
     return (
         <div className="flex flex-col gap-4 w-3/6">
-            {allCartProducts.map((value: { id: number; quantity: number }, index: number) => (
-                <ProductCart
-                    key={index}
-                    id={value.id}
-                    quantity={value.quantity}
-                    product={Products.find(product => product.id === value.id) || ({} as Product)}
-                    handleAddToCart={() =>
-                        handleClickAddToCart(
+            {allCartProducts.map(
+                (
+                    value: { id: number; quantity: number; ingredientsRemoved: { id: number }[] },
+                    index: number
+                ) => (
+                    <ProductCart
+                        key={index}
+                        id={value.id}
+                        quantity={value.quantity}
+                        ingredientsRemoved={value.ingredientsRemoved}
+                        ingredients={Ingredients}
+                        product={
                             Products.find(product => product.id === value.id) || ({} as Product)
-                        )
-                    }
-                    handleRemoveFromCart={() =>
-                        handleClickRemoveFromCart(
-                            Products.find(product => product.id === value.id) || ({} as Product)
-                        )
-                    }
-                />
-            ))}
+                        }
+                        handleAddToCart={() =>
+                            handleClickAddToCart(
+                                Products.find(product => product.id === value.id) || ({} as Product)
+                            )
+                        }
+                        handleRemoveFromCart={() =>
+                            handleClickRemoveFromCart(
+                                Products.find(product => product.id === value.id) || ({} as Product)
+                            )
+                        }
+                    />
+                )
+            )}
             <div className="flex justify-between mt-2">
                 <span className="text-lg font-semibold">Total:</span>
                 <span className="text-lg font-semibold">

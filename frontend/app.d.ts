@@ -43,6 +43,7 @@ type Category = {
 type CartProduct = {
     id: number;
     quantity: number;
+    ingredientsRemoved: { id: number }[];
 };
 
 interface IngredientState {
