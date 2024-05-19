@@ -100,7 +100,7 @@ export default function ModalNewProduct({
                     />
                     <label className="font-semibold" htmlFor={'image'}>
                         Subir Imagen
-                    </label>{' '}
+                    </label>
                     <input
                         id="image"
                         type="file"
