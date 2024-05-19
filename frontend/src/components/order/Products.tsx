@@ -17,7 +17,6 @@ export default function AllProducts({
                     id={value.id}
                     name={value.name}
                     price={value.price}
-                    image={value.image}
                     add
                     modify
                     onAdd={() => {

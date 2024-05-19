@@ -22,7 +22,6 @@ export default function ModalNewProduct({
         id: 0,
         name: '',
         description: '',
-        image: '',
         price: 0,
         ingredients: [],
         category: undefined
@@ -99,16 +98,9 @@ export default function ModalNewProduct({
                         minLength={2}
                         required
                     />
-                    <InputClient
-                        id="image"
-                        label="Url de la imagen"
-                        onChange={value => handleChange('image', value)}
-                        placeholder="Introduce la url de la imagen"
-                        type="text"
-                        value={formData.image}
-                        minLength={2}
-                        required
-                    />
+                    <label className="font-semibold" htmlFor={'image'}>
+                        Subir Imagen
+                    </label>{' '}
                     <input
                         id="image"
                         type="file"
@@ -148,7 +140,6 @@ export default function ModalNewProduct({
                         onChange={handleCategoryChange}
                         searchable
                     />
-
                     <Button style="brown" text="Crear producto" />
                 </div>
             </form>

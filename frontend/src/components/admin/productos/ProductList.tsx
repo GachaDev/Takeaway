@@ -39,7 +39,6 @@ export default function ProductList({
                     id={value.id}
                     name={value.name}
                     price={value.price}
-                    image={value.image}
                     del={true}
                     onDelete={() => delProduct(value.id)}
                 />

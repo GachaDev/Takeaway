@@ -30,7 +30,6 @@ export default async function Productos() {
             JSON.stringify({
                 name: form.name,
                 description: form.description,
-                image: form.image,
                 price: form.price,
                 ingredientsToAdd: form.ingredients,
                 category: form.category?.id

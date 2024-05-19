@@ -4,7 +4,6 @@ export default function Product({
     name,
     price,
     id,
-    image,
     add = false,
     modify = false,
     del = false,

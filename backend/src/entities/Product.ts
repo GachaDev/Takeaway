@@ -5,16 +5,9 @@ import { Category } from './Category';
 
 @Entity('products')
 export class Product {
-    constructor(
-        name: string,
-        description: string,
-        image: string,
-        price: number,
-        category: Category
-    ) {
+    constructor(name: string, description: string, price: number, category: Category) {
         this.name = name;
         this.description = description;
-        this.image = image;
         this.price = price;
         this.category = category;
     }
@@ -27,9 +20,6 @@ export class Product {
 
     @Column()
     description: string;
-
-    @Column()
-    image: string;
 
     @Column('float', { nullable: false, default: 0 })
     price: number;
