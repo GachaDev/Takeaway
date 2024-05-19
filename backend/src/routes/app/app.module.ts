@@ -11,6 +11,8 @@ import { CategoriesController } from '../categories/categories.controller';
 import { CategoriesModule } from '../categories/categories.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { OrdersController } from '../orders/orders.controller';
+import { OrdersModule } from '../orders/orders.module';
 
 @Module({
     imports: [
@@ -29,8 +31,16 @@ import { diskStorage } from 'multer';
         ProductsController,
         UsersController,
         IngredientsController,
-        CategoriesController
+        CategoriesController,
+        OrdersController
     ],
-    providers: [AppService, ProductsModule, UsersModule, IngredientsModule, CategoriesModule]
+    providers: [
+        AppService,
+        ProductsModule,
+        UsersModule,
+        IngredientsModule,
+        CategoriesModule,
+        OrdersModule
+    ]
 })
 export class AppModule {}

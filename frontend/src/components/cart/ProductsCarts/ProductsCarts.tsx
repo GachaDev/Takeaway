@@ -7,12 +7,14 @@ export default function ProductsCarts({
     cartProducts,
     Products,
     addToCart,
-    removeFromCart
+    removeFromCart,
+    finishOrder
 }: {
     cartProducts: CartProduct[];
     Products: Product[];
     addToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
+    finishOrder: () => void;
 }) {
     const [allCartProducts, setAllCartProducts] = useState<CartProduct[]>([...cartProducts]);
 
@@ -75,13 +77,7 @@ export default function ProductsCarts({
                     €
                 </span>
             </div>
-            <Button
-                style="greenDark"
-                text="Finalizar compra"
-                handleClick={() => {
-                    console.log('finalizar');
-                }}
-            />
+            <Button style="greenDark" text="Finalizar compra" handleClick={finishOrder} />
         </div>
     );
 }

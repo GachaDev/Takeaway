@@ -4,13 +4,26 @@ import { Select } from '@mantine/core';
 import ProductsCarts from './ProductsCarts/ProductsCarts';
 import { useState } from 'react';
 
+export enum PaymentMethod {
+    CASH = 'cash',
+    CARD = 'card',
+    OTHER = 'other'
+}
+
+const paymentMethodLabels = {
+    [PaymentMethod.CASH]: 'Efectivo',
+    [PaymentMethod.CARD]: 'Tarjeta',
+    [PaymentMethod.OTHER]: 'Otro'
+};
+
 export default function Cart({
     Products,
     cartProducts,
     handleAddToCart,
     handleRemoveFromCart,
     pickupOption,
-    address
+    address,
+    finishOrder
 }: {
     Products: Product[];
     cartProducts: CartProduct[];
@@ -18,12 +31,20 @@ export default function Cart({
     pickupOption: string | undefined;
     handleRemoveFromCart: (product: Product) => void;
     address: string | undefined;
+    finishOrder: (selectedDate: string, paymentMethod: string) => void;
 }) {
-    const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString());
+    const [selectedDate, setSelectedDate] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.CASH);
 
     const handleDateChange = (value: string | null) => {
         if (value) {
             setSelectedDate(value);
+        }
+    };
+
+    const handlePaymentMethodChange = (value: string | null) => {
+        if (value) {
+            setPaymentMethod(value as PaymentMethod);
         }
     };
 
@@ -61,6 +82,16 @@ export default function Cart({
 
     const allTimeOptions = generateTimeOptions();
     const filteredTimeOptions = filterTimeOptions(allTimeOptions);
+    const paymentMethods = Object.keys(paymentMethodLabels).map(key => ({
+        value: key,
+        label: paymentMethodLabels[key as PaymentMethod]
+    }));
+
+    const handleFinishOrder = () => {
+        if (selectedDate && paymentMethod) {
+            finishOrder(selectedDate, paymentMethod);
+        }
+    };
 
     return (
         <div className="flex flex-row gap-10 mt-8 w-full justify-between max-md:flex-col max-md:items-center">
@@ -102,12 +133,22 @@ export default function Cart({
                         value={selectedDate}
                     />
                 </div>
+                <div className="flex gap-2">
+                    <Select
+                        label="Selecciona el método de pago"
+                        placeholder="Selecciona el método de pago"
+                        data={paymentMethods}
+                        onChange={handlePaymentMethodChange}
+                        value={paymentMethod}
+                    />
+                </div>
             </div>
             <ProductsCarts
                 cartProducts={cartProducts}
                 Products={Products}
                 addToCart={handleAddToCart}
                 removeFromCart={handleRemoveFromCart}
+                finishOrder={handleFinishOrder}
             />
         </div>
     );

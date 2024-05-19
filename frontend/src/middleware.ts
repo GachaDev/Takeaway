@@ -41,7 +41,7 @@ export async function middleware(request: NextRequest) {
         }
     }
 
-    if (path === 'cart') {
+    if (path === '/cart') {
         if (!tokenValid) {
             return NextResponse.redirect(new URL('/login', request.nextUrl));
         }
