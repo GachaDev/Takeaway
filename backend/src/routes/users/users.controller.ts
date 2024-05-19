@@ -24,7 +24,6 @@ export class UsersController {
         if (idUser) {
             response = await this.usersService.getUserById(idUser);
         }
-        console.log(response);
         if (response) {
             return res.status(200).json(response);
         }

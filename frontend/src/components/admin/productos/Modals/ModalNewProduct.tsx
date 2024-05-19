@@ -70,7 +70,6 @@ export default function ModalNewProduct({
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         createProduct(formData, selectedFile);
-        console.log('Form submitted:', formData);
         close();
     };
 
