@@ -1,6 +1,6 @@
 const nextConfig = {
     images: {
-        domains: ['media.discordapp.net'],
+        domains: ['localhost'],
         loader: 'default'
     }
 };

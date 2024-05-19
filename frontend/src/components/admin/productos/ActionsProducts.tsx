@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ModalNewProduct from './Modals/ModalNewProduct';
 import ModalNewIngredient from './Modals/ModalNewIngredient';
 import ModalNewCategory from './Modals/ModalNewCategory';
+import { useFetch } from '@/components/utils/useFetch';
 
 export default function ActionsProducts({
     allProducts,
@@ -28,12 +29,31 @@ export default function ActionsProducts({
     const [modalNewIngredient, setModalNewIngredient] = useState(false);
     const [modalNewCategory, setModalNewCategory] = useState(false);
 
-    const handleCreateProduct = async (product: Product) => {
+    const handleCreateProduct = async (product: Product, file: File | null) => {
         try {
             const newProductId = await createProduct(product);
             if (newProductId !== null) {
-                console.log(newProductId);
                 product.id = newProductId;
+                if (file) {
+                    try {
+                        const formData = new FormData();
+                        formData.append('image', file);
+
+                        const response = await fetch(
+                            `http://localhost:4000/products/upload/${newProductId}`,
+                            {
+                                method: 'POST',
+                                body: formData
+                            }
+                        );
+
+                        if (!response.ok) {
+                            throw new Error('Failed to upload image: ' + response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Error uploading image:', error);
+                    }
+                }
                 setAllProducts(prevProducts => [...prevProducts, product]);
             } else {
                 console.error('Failed to create product');

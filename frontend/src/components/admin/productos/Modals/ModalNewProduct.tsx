@@ -4,7 +4,7 @@ import InputClient from '@/components/common/InputClient';
 import { Modal, MultiSelect, Select } from '@mantine/core';
 
 interface ModalNewProductProps {
-    createProduct(val: Product): void;
+    createProduct(val: Product, file: File | null): void;
     open: boolean;
     close: () => void;
     allIngredients: Ingredient[];
@@ -27,6 +27,7 @@ export default function ModalNewProduct({
         ingredients: [],
         category: undefined
     });
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleChange = (name: string, value: string) => {
         setFormData({
@@ -60,9 +61,16 @@ export default function ModalNewProduct({
         }
     };
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+        }
+    };
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createProduct(formData);
+        createProduct(formData, selectedFile);
         console.log('Form submitted:', formData);
         close();
     };
@@ -100,6 +108,14 @@ export default function ModalNewProduct({
                         value={formData.image}
                         minLength={2}
                         required
+                    />
+                    <input
+                        id="image"
+                        type="file"
+                        accept=".webp"
+                        required
+                        multiple={false}
+                        onChange={e => handleFileChange(e)}
                     />
                     <InputClient
                         id="price"

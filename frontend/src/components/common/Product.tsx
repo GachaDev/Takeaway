@@ -3,6 +3,7 @@ import Image from 'next/image';
 export default function Product({
     name,
     price,
+    id,
     image,
     add = false,
     modify = false,
@@ -16,6 +17,7 @@ export default function Product({
     add?: boolean;
     modify?: boolean;
     del?: boolean;
+    id?: number;
     edit?: boolean;
     onAdd?: () => void;
     onModify?: () => void;
@@ -27,7 +29,7 @@ export default function Product({
             <Image
                 className="max-h-[200px] h-full object-cover p-2"
                 alt={name}
-                src={image}
+                src={'http://localhost:4000/products/' + id + '.webp'}
                 width={350}
                 height={350}
             />

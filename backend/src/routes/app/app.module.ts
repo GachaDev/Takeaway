@@ -9,9 +9,21 @@ import { IngredientsModule } from '../ingredients/ingredients.module';
 import { IngredientsController } from '../ingredients/ingredients.controller';
 import { CategoriesController } from '../categories/categories.controller';
 import { CategoriesModule } from '../categories/categories.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @Module({
-    imports: [],
+    imports: [
+        MulterModule.register({
+            storage: diskStorage({
+                destination: './uploads',
+                filename: (req, file, cb) => {
+                    const filename = `${req.params.id}.webp`;
+                    cb(null, filename);
+                }
+            })
+        })
+    ],
     controllers: [
         AppController,
         ProductsController,
