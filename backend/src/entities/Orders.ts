@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { OrderProduct } from './OrderProduct';
 
 enum PaymentMethod {
@@ -26,6 +26,9 @@ export class Order {
     @Column({ type: 'boolean' })
     delivery: boolean;
 
+    @Column({ type: 'varchar', length: 255 })
+    address: string;
+
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     date_ordered: Date;
 
@@ -41,6 +44,9 @@ export class Order {
     @Column({ type: 'enum', enum: OrderState })
     state: OrderState;
 
-    @OneToMany(() => OrderProduct, orderProduct => orderProduct.order)
+    @OneToMany(() => OrderProduct, orderProduct => orderProduct.order, {
+        cascade: true,
+        onDelete: 'CASCADE'
+    })
     orderProducts: OrderProduct[];
 }

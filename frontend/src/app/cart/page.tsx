@@ -1,6 +1,7 @@
 'use server';
 import Cart from '@/components/cart/Cart';
 import { handleMinusCart, handlePlusCart } from '@/components/common/AddToCart';
+import { getSession } from '@/components/utils/getSession';
 import { useFetch } from '@/components/utils/useFetch';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -17,6 +18,40 @@ export default async function CartPage() {
 
     const finishOrder = async (selectedDate: string, paymentMethod: string) => {
         'use server';
+        const session = (await getSession()) as Session;
+
+        const cart = cookies().get('cart')?.value;
+        const cartProducts = cart ? JSON.parse(cart) : [];
+
+        const currentDate = new Date();
+        const [hours, minutes] = selectedDate.split(':').map(Number);
+        const dateAproxRecollect = new Date(currentDate);
+        dateAproxRecollect.setHours(hours, minutes, 0, 0);
+        let orderProducts = cartProducts.map((product: CartProduct) => {
+            return {
+                amount: product.quantity,
+                product: product.id,
+                removedIngredients: product.ingredientsRemoved.map((ingredient: { id: number }) => {
+                    return {
+                        productIngredient: { id: ingredient.id }
+                    };
+                })
+            };
+        });
+
+        const data = {
+            id_user: session.id,
+            delivery: cookies().get('pickupOption')?.value === 'DOMICILIO' ? true : false,
+            address: cookies().get('pickupAddress')?.value || '',
+            date_ordered: new Date(),
+            date_aprox_recollect: dateAproxRecollect,
+            payment_method: paymentMethod,
+            delivered: false,
+            state: 'pending',
+            orderProducts: orderProducts
+        };
+
+        await useFetch(`/orders`, 'POST', JSON.stringify(data));
 
         cookies().set('pickupOption', '', {
             expires: new Date(0),
@@ -39,6 +74,7 @@ export default async function CartPage() {
             httpOnly: true,
             secure: true
         });
+
         redirect('/tracker');
     };
 

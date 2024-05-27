@@ -8,7 +8,7 @@ export class OrderProduct {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Order, order => order.orderProducts)
+    @ManyToOne(() => Order, order => order.orderProducts, { onDelete: 'CASCADE' })
     order: Order;
 
     @ManyToOne(() => Product, product => product.orderProducts)
@@ -17,6 +17,8 @@ export class OrderProduct {
     @Column({ type: 'int' })
     amount: number;
 
-    @OneToMany(() => RemovedOrderIngredient, removedIngredient => removedIngredient.orderProduct)
+    @OneToMany(() => RemovedOrderIngredient, removedIngredient => removedIngredient.orderProduct, {
+        cascade: true
+    })
     removedIngredients: RemovedOrderIngredient[];
 }

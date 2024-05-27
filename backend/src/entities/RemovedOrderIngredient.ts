@@ -8,7 +8,8 @@ export class RemovedOrderIngredient {
     id: number;
 
     @ManyToOne(() => OrderProduct, orderProduct => orderProduct.removedIngredients, {
-        nullable: false
+        nullable: false,
+        onDelete: 'CASCADE'
     })
     @JoinColumn({ name: 'order_product_id' })
     orderProduct: OrderProduct;
