@@ -3,6 +3,7 @@
 import { Select } from '@mantine/core';
 import ProductsCarts from './ProductsCarts/ProductsCarts';
 import { useState } from 'react';
+import Button from '../common/Button';
 
 export enum PaymentMethod {
     CASH = 'cash',
@@ -24,7 +25,8 @@ export default function Cart({
     handleRemoveFromCart,
     pickupOption,
     address,
-    finishOrder
+    finishOrder,
+    restartOrder
 }: {
     Products: Product[];
     Ingredients: Ingredient[];
@@ -34,6 +36,7 @@ export default function Cart({
     handleRemoveFromCart: (index: number) => void;
     address: string | undefined;
     finishOrder: (selectedDate: string, paymentMethod: string) => void;
+    restartOrder: () => void;
 }) {
     const [selectedDate, setSelectedDate] = useState('');
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.CASH);
@@ -143,6 +146,7 @@ export default function Cart({
                         value={paymentMethod}
                     />
                 </div>
+                <Button style="greenLigth" text="Reiniciar pedido" handleClick={restartOrder} />
             </div>
             <ProductsCarts
                 cartProducts={cartProducts}

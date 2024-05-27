@@ -78,6 +78,34 @@ export default async function CartPage() {
         redirect('/tracker');
     };
 
+    const restartOrder = async () => {
+        'use server';
+
+        cookies().set('pickupOption', '', {
+            expires: new Date(0),
+            path: '/',
+            sameSite: true,
+            httpOnly: true,
+            secure: true
+        });
+        cookies().set('pickupAddress', '', {
+            expires: new Date(0),
+            path: '/',
+            sameSite: true,
+            httpOnly: true,
+            secure: true
+        });
+        cookies().set('cart', '', {
+            expires: new Date(0),
+            path: '/',
+            sameSite: true,
+            httpOnly: true,
+            secure: true
+        });
+
+        redirect('/order');
+    };
+
     return (
         <div className="flex justify-center w-full mt-5">
             <div className="flex flex-col items-center rounded-lg p-5 shadow-box w-5/6">
@@ -91,6 +119,7 @@ export default async function CartPage() {
                     pickupOption={cookies().get('pickupOption')?.value}
                     address={cookies().get('pickupAddress')?.value}
                     finishOrder={finishOrder}
+                    restartOrder={restartOrder}
                 />
             </div>
         </div>
