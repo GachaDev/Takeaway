@@ -130,16 +130,16 @@ export default function AllVentas({
                         </div>
                         <div>
                             <span>Productos: </span>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-col items-center flex-wrap gap-2">
                                 {order.orderProducts.map((orderProduct: OrderProduct) => (
-                                    <div className="flex flex-col gap-2">
+                                    <div className="flex flex-row w-full items-center gap-2">
                                         <p className="text-lg">
                                             {orderProduct.product.name} - {orderProduct.amount} ud
                                         </p>
                                         {orderProduct.removedIngredients.length > 0 && (
-                                            <div className="flex flex-col gap-2">
-                                                <span>Ingredientes eliminados: </span>
-                                                <div className="flex flex-wrap gap-2">
+                                            <div className="flex flex-row items-center gap-2">
+                                                <span>| Ingredientes eliminados: </span>
+                                                <div className="flex flex-wrap items-center gap-2">
                                                     {orderProduct.removedIngredients.map(
                                                         (removedIngredient: RemovedIngredient) => (
                                                             <div className="flex flex-col gap-2">
