@@ -14,7 +14,7 @@
 
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: var(--cartel); /* Puedes cambiar el color aquí */
+    border-left-color: var(--cartel);
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
