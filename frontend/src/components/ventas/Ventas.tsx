@@ -2,6 +2,24 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '../utils/useFetch';
 import { Select } from '@mantine/core';
+
+export const getLabelState = (state: OrderState) => {
+    switch (state) {
+        case 'in_kitchen':
+            return 'En cocina';
+        case 'in_delivery':
+            return 'En entrega';
+        case 'completed':
+            return 'Completado';
+        case 'in_progress':
+            return 'En proceso';
+        case 'pending':
+            return 'Pendiente';
+        case 'delivered':
+            return 'Entregado';
+    }
+};
+
 export default function AllVentas({
     allOrders,
     updateState,
@@ -11,30 +29,15 @@ export default function AllVentas({
     updateState: (order: Order) => void;
     cancelOrder: (id: number) => void;
 }) {
-    const [orders, setOrders] = useState<Order[]>(allOrders);
+    const [orders, setOrders] = useState<Order[]>(
+        allOrders.filter((order: Order) => order.state !== 'delivered')
+    );
 
     const fetchOrders = async () => {
         const response = await useFetch(`/orders`, 'GET', '', ['orders']);
         const ordersData = await response.json();
         const filteredOrders = ordersData.filter((order: Order) => order.state !== 'delivered');
         setOrders(filteredOrders);
-    };
-
-    const getLabelState = (state: OrderState) => {
-        switch (state) {
-            case 'in_kitchen':
-                return 'En cocina';
-            case 'in_delivery':
-                return 'En entrega';
-            case 'completed':
-                return 'Completado';
-            case 'in_progress':
-                return 'En proceso';
-            case 'pending':
-                return 'Pendiente';
-            case 'delivered':
-                return 'Entregado';
-        }
     };
 
     const getPaymentMethod = (payment_method: PaymentMethod) => {

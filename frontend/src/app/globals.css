@@ -11,3 +11,21 @@
     --tw-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.012), 0 0 3px 3px rgba(0, 0, 0, 0.06);
     box-shadow: var(--tw-shadow);
 }
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--cartel); /* Puedes cambiar el color aquí */
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
