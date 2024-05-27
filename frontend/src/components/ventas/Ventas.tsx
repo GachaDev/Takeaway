@@ -76,6 +76,11 @@ export default function AllVentas({
 
     return (
         <div className="flex flex-wrap gap-10 mt-8">
+            {orders.length === 0 && (
+                <div className="flex flex-col justify-center items-center">
+                    <p className="text-lg">No hay pedidos actuales</p>
+                </div>
+            )}
             {orders.map((order: Order) => (
                 <div
                     className="flex flex-col justify-between gap-2 p-6 rounded-lg bg-white shadow-box"
