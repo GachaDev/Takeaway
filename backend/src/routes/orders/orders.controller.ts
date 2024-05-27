@@ -12,6 +12,11 @@ export class OrdersController {
         return await this.ordersService.getAll();
     }
 
+    @Get('userOrders/:userId')
+    async findUserOrders(@Param('userId') userId: number) {
+        return await this.ordersService.findUserOrders(userId);
+    }
+
     @Post()
     async create(@Body() order: Order) {
         return await this.ordersService.create(order);

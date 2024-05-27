@@ -12,6 +12,9 @@ export const revalidate = Infinity;
 export default async function Profile() {
     const session = (await getSession()) as Session;
     const user = (await (await useFetch(`/users/user?id=${session.id}`, 'GET')).json()) as User;
+    const orders = (await (
+        await useFetch(`/orders/userOrders/${session.id}`, 'GET')
+    ).json()) as Order[];
 
     async function logOut() {
         'use server';
@@ -69,7 +72,7 @@ export default async function Profile() {
                 <div className="grid sm:grid-cols-2 gap-10 justify-center mt-8">
                     <PersonalInfo savePersonalInfo={savePersonalInfo} infoUser={user} />
                     <ChangePassword savePassword={savePassword} />
-                    <LastOrders />
+                    <LastOrders orders={orders} />
                     <MyPoints points={user.points} />
                 </div>
                 <div className="flex max-sm:flex-col justify-center gap-2 mt-16 w-full">

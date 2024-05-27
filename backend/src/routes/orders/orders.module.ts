@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DAO } from 'src/DAO/DAO';
+import { OrderDAO } from 'src/DAO/OrderDAO';
 import { OrderProduct } from 'src/entities/OrderProduct';
 import { Order } from 'src/entities/Orders';
 import { ProductIngredient } from 'src/entities/ProductIngredient';
@@ -7,7 +8,7 @@ import { RemovedOrderIngredient } from 'src/entities/RemovedOrderIngredient';
 
 @Injectable()
 export class OrdersModule {
-    DAO: DAO<Order> = new DAO<Order>(Order);
+    DAO: OrderDAO = new OrderDAO();
     orderProductDAO: DAO<OrderProduct> = new DAO<OrderProduct>(OrderProduct);
     removedOrderIngredientDAO: DAO<RemovedOrderIngredient> = new DAO<RemovedOrderIngredient>(
         RemovedOrderIngredient
@@ -16,6 +17,16 @@ export class OrdersModule {
 
     getAll(): Promise<Order[]> {
         return this.DAO.findAll([
+            'orderProducts',
+            'orderProducts.removedIngredients',
+            'orderProducts.product',
+            'orderProducts.removedIngredients.productIngredient',
+            'orderProducts.removedIngredients.productIngredient.ingredient'
+        ]);
+    }
+
+    async findUserOrders(userId: number): Promise<Order[] | null> {
+        return this.DAO.findByUserId(userId, [
             'orderProducts',
             'orderProducts.removedIngredients',
             'orderProducts.product',

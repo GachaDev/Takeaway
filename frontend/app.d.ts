@@ -49,3 +49,34 @@ type CartProduct = {
 interface IngredientState {
     [key: string]: boolean;
 }
+
+interface Order {
+    id: number;
+    id_user: number;
+    delivery: boolean;
+    address: string;
+    date_ordered: Date;
+    date_aprox_recollect: Date;
+    payment_method: string;
+    delivered: boolean;
+    state: string;
+    orderProducts: OrderProduct[];
+}
+
+interface OrderProduct {
+    id: number;
+    amount: number;
+    removedIngredients: RemovedIngredient[];
+    product: Product;
+}
+
+interface RemovedIngredient {
+    id: number;
+    productIngredient: ProductIngredient;
+}
+
+interface ProductIngredient {
+    id: number;
+    can_remove: boolean;
+    ingredient: Ingredient;
+}
