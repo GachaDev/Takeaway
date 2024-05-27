@@ -1,4 +1,12 @@
 type Style = 'greenDark' | 'greenLigth' | 'brown' | 'black';
+type OrderState =
+    | 'pending'
+    | 'in_progress'
+    | 'completed'
+    | 'in_kitchen'
+    | 'in_delivery'
+    | 'delivered';
+type PaymentMethod = 'cash' | 'card' | 'paypal' | 'other';
 
 type Session = {
     id: number;
@@ -57,9 +65,9 @@ interface Order {
     address: string;
     date_ordered: Date;
     date_aprox_recollect: Date;
-    payment_method: string;
+    payment_method: PaymentMethod;
     delivered: boolean;
-    state: string;
+    state: OrderState;
     orderProducts: OrderProduct[];
 }
 

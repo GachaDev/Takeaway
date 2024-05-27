@@ -3,6 +3,7 @@ import Cart from '@/components/cart/Cart';
 import { handleMinusCart, handlePlusCart } from '@/components/common/AddToCart';
 import { getSession } from '@/components/utils/getSession';
 import { useFetch } from '@/components/utils/useFetch';
+import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -50,6 +51,8 @@ export default async function CartPage() {
             state: 'pending',
             orderProducts: orderProducts
         };
+
+        revalidateTag('orders');
 
         await useFetch(`/orders`, 'POST', JSON.stringify(data));
 

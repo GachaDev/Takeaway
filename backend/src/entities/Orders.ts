@@ -8,11 +8,13 @@ enum PaymentMethod {
     OTHER = 'other'
 }
 
-enum OrderState {
+export enum OrderStateEnum {
     PENDING = 'pending',
     IN_PROGRESS = 'in_progress',
     COMPLETED = 'completed',
-    CANCELED = 'canceled'
+    IN_KITCHEN = 'in_kitchen',
+    IN_DELIVERY = 'in_delivery',
+    DELIVERED = 'delivered'
 }
 
 @Entity('orders')
@@ -41,8 +43,8 @@ export class Order {
     @Column({ type: 'boolean' })
     delivered: boolean;
 
-    @Column({ type: 'enum', enum: OrderState })
-    state: OrderState;
+    @Column({ type: 'enum', enum: OrderStateEnum })
+    state: OrderStateEnum;
 
     @OneToMany(() => OrderProduct, orderProduct => orderProduct.order, {
         cascade: true,

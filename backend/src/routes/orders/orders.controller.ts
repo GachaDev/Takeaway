@@ -23,8 +23,8 @@ export class OrdersController {
     }
 
     @Put()
-    async update(@Body() order: Order) {
-        return await this.ordersService.update(order);
+    async update(@Body() order: { order: Order }) {
+        return await this.ordersService.update(order.order);
     }
 
     @Delete(':id')
