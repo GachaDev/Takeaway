@@ -3,7 +3,9 @@ import AllVentas from '@/components/ventas/Ventas';
 import { revalidateTag } from 'next/cache';
 
 export default async function Ventas() {
-    const orders = (await (await useFetch(`/orders`, 'GET', '', ['orders'])).json()) as Order[];
+    const orders = (await (await useFetch(`/orders`, 'GET', '', ['orders'])).json()) as
+        | Order[]
+        | [];
 
     const updateState = async (order: Order) => {
         'use server';
