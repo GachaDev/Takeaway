@@ -3,8 +3,10 @@ import { DAO } from 'src/DAO/DAO';
 import { OrderDAO } from 'src/DAO/OrderDAO';
 import { OrderProduct } from 'src/entities/OrderProduct';
 import { Order } from 'src/entities/Orders';
+import { Product } from 'src/entities/Product';
 import { ProductIngredient } from 'src/entities/ProductIngredient';
 import { RemovedOrderIngredient } from 'src/entities/RemovedOrderIngredient';
+import { User } from 'src/entities/User';
 
 @Injectable()
 export class OrdersModule {
@@ -14,6 +16,8 @@ export class OrdersModule {
         RemovedOrderIngredient
     );
     productIngredientDAO: DAO<ProductIngredient> = new DAO<ProductIngredient>(ProductIngredient);
+    userDAO: DAO<User> = new DAO<User>(User);
+    productDAO: DAO<Product> = new DAO<Product>(Product);
 
     getAll(): Promise<Order[]> {
         return this.DAO.findAll([
@@ -41,13 +45,15 @@ export class OrdersModule {
         const createdOrder = await this.DAO.create(order2);
         if (createdOrder.lastInsertId) {
             const orderEntity = await this.DAO.findById(createdOrder.lastInsertId);
-
+            let totalEuros = 0;
             for (const product of order.orderProducts) {
                 const orderProduct = new OrderProduct();
                 orderProduct.order = orderEntity;
                 orderProduct.product = product.product;
                 orderProduct.amount = product.amount;
 
+                const productEntity = await this.productDAO.findById(product.product.id);
+                totalEuros += productEntity.price * product.amount;
                 const createdOrderProduct = await this.orderProductDAO.create(orderProduct);
                 if (createdOrderProduct.lastInsertId) {
                     const orderProductEntity = await this.orderProductDAO.findById(
@@ -65,6 +71,10 @@ export class OrdersModule {
                     }
                 }
             }
+            const pointsEarned = Math.floor(totalEuros / 10);
+            const user = await this.userDAO.findById(order.id_user);
+            user.points += pointsEarned;
+            await this.userDAO.update(user);
         }
         return createdOrder;
     }
