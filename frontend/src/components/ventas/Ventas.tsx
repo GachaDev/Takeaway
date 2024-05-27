@@ -86,7 +86,7 @@ export default function AllVentas({
                     className="flex flex-col justify-between gap-2 p-6 rounded-lg bg-white shadow-box"
                     key={order.id}
                 >
-                    <div>
+                    <div className="flex flex-col gap-1">
                         <h2 className="text-2xl">
                             Pedido #{order.id} - {order.delivery ? 'Domicilio' : 'Recoger'}
                         </h2>
