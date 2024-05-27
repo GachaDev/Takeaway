@@ -14,69 +14,48 @@ export default function ProductsCarts({
     cartProducts: CartProduct[];
     Products: Product[];
     Ingredients: Ingredient[];
-    addToCart: (product: Product) => void;
-    removeFromCart: (product: Product) => void;
+    addToCart: (index: number) => void;
+    removeFromCart: (index: number) => void;
     finishOrder: () => void;
 }) {
     const [allCartProducts, setAllCartProducts] = useState<CartProduct[]>([...cartProducts]);
 
-    console.log(allCartProducts);
+    const handleClickAddToCart = async (index: number) => {
+        addToCart(index);
 
-    const handleClickAddToCart = async (value: Product) => {
-        addToCart(value);
-        setAllCartProducts(
-            allCartProducts.map((cartProduct: CartProduct) => {
-                if (cartProduct.id === value.id) {
-                    return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-                }
-                return cartProduct;
-            })
-        );
+        let updatedCartProducts = [...allCartProducts];
+        updatedCartProducts[index].quantity += 1;
+
+        setAllCartProducts(updatedCartProducts);
     };
 
-    const handleClickRemoveFromCart = async (value: Product) => {
-        removeFromCart(value);
-        const updatedCartProducts = allCartProducts
-            .map((cartProduct: CartProduct) => {
-                if (cartProduct.id === value.id && cartProduct.quantity > 0) {
-                    return { ...cartProduct, quantity: cartProduct.quantity - 1 };
-                }
-                return cartProduct;
-            })
-            .filter(cartProduct => cartProduct.quantity !== 0);
+    const handleClickRemoveFromCart = async (index: number) => {
+        removeFromCart(index);
+
+        let updatedCartProducts = [...allCartProducts];
+        updatedCartProducts[index].quantity -= 1;
+
+        if (updatedCartProducts[index].quantity <= 0) {
+            updatedCartProducts.splice(index, 1);
+        }
 
         setAllCartProducts(updatedCartProducts);
     };
 
     return (
         <div className="flex flex-col gap-4 w-3/6">
-            {allCartProducts.map(
-                (
-                    value: { id: number; quantity: number; ingredientsRemoved: { id: number }[] },
-                    index: number
-                ) => (
-                    <ProductCart
-                        key={index}
-                        id={value.id}
-                        quantity={value.quantity}
-                        ingredientsRemoved={value.ingredientsRemoved}
-                        ingredients={Ingredients}
-                        product={
-                            Products.find(product => product.id === value.id) || ({} as Product)
-                        }
-                        handleAddToCart={() =>
-                            handleClickAddToCart(
-                                Products.find(product => product.id === value.id) || ({} as Product)
-                            )
-                        }
-                        handleRemoveFromCart={() =>
-                            handleClickRemoveFromCart(
-                                Products.find(product => product.id === value.id) || ({} as Product)
-                            )
-                        }
-                    />
-                )
-            )}
+            {allCartProducts.map((value: CartProduct, index: number) => (
+                <ProductCart
+                    key={index}
+                    id={value.id}
+                    quantity={value.quantity}
+                    ingredientsRemoved={value.ingredientsRemoved}
+                    ingredients={Ingredients}
+                    product={Products.find(product => product.id === value.id) || ({} as Product)}
+                    handleAddToCart={() => handleClickAddToCart(index)}
+                    handleRemoveFromCart={() => handleClickRemoveFromCart(index)}
+                />
+            ))}
             <div className="flex justify-between mt-2">
                 <span className="text-lg font-semibold">Total:</span>
                 <span className="text-lg font-semibold">

@@ -1,6 +1,6 @@
 'use server';
 import Cart from '@/components/cart/Cart';
-import { handleAddToCart, handleRemoveFromCart } from '@/components/common/AddToCart';
+import { handleMinusCart, handlePlusCart } from '@/components/common/AddToCart';
 import { useFetch } from '@/components/utils/useFetch';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -50,8 +50,8 @@ export default async function CartPage() {
                     Products={Products}
                     Ingredients={Ingredients}
                     cartProducts={cartProducts}
-                    handleAddToCart={handleAddToCart}
-                    handleRemoveFromCart={handleRemoveFromCart}
+                    handleAddToCart={handlePlusCart}
+                    handleRemoveFromCart={handleMinusCart}
                     pickupOption={cookies().get('pickupOption')?.value}
                     address={cookies().get('pickupAddress')?.value}
                     finishOrder={finishOrder}

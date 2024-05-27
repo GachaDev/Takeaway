@@ -68,3 +68,39 @@ export const handleRemoveFromCart = async (product: Product) => {
         secure: true
     });
 };
+
+export const handlePlusCart = async (existingProductIndex: number) => {
+    'use server';
+    const cart = cookies().get('cart')?.value;
+
+    let cartProducts = cart ? JSON.parse(cart) : [];
+
+    cartProducts[existingProductIndex].quantity += 1;
+
+    cookies().set('cart', JSON.stringify(cartProducts), {
+        expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 365,
+        sameSite: true,
+        httpOnly: true,
+        secure: true
+    });
+};
+
+export const handleMinusCart = async (existingProductIndex: number) => {
+    'use server';
+    const cart = cookies().get('cart')?.value;
+
+    let cartProducts = cart ? JSON.parse(cart) : [];
+
+    cartProducts[existingProductIndex].quantity -= 1;
+
+    if (cartProducts[existingProductIndex].quantity <= 0) {
+        cartProducts.splice(existingProductIndex, 1);
+    }
+
+    cookies().set('cart', JSON.stringify(cartProducts), {
+        expires: new Date().getTime() + 1000 * 60 * 60 * 24 * 365,
+        sameSite: true,
+        httpOnly: true,
+        secure: true
+    });
+};

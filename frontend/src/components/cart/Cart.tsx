@@ -29,9 +29,9 @@ export default function Cart({
     Products: Product[];
     Ingredients: Ingredient[];
     cartProducts: CartProduct[];
-    handleAddToCart: (product: Product) => void;
+    handleAddToCart: (index: number) => void;
     pickupOption: string | undefined;
-    handleRemoveFromCart: (product: Product) => void;
+    handleRemoveFromCart: (index: number) => void;
     address: string | undefined;
     finishOrder: (selectedDate: string, paymentMethod: string) => void;
 }) {
@@ -98,7 +98,6 @@ export default function Cart({
     return (
         <div className="flex flex-row gap-10 mt-8 w-full justify-between max-md:flex-col max-md:items-center">
             <div className="w-2/6 flex flex-col gap-5">
-                <h1 className="mb-5 text-lg font-semibold">Datos</h1>
                 {pickupOption === 'DOMICILIO' ? (
                     <div className="flex flex-col gap-5">
                         <div className="flex gap-2">
