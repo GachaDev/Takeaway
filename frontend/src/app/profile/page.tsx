@@ -9,12 +9,26 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const revalidate = Infinity;
+
 export default async function Profile() {
     const session = (await getSession()) as Session;
-    const user = (await (await UseFetch(`/users/user?id=${session.id}`, 'GET')).json()) as User;
-    const orders = (await (
-        await UseFetch(`/orders/userOrders/${session.id}`, 'GET')
-    ).json()) as Order[];
+
+    if (!session || typeof session === 'boolean') {
+        console.error('Session is invalid');
+        redirect('/login');
+        return;
+    }
+
+    const userResponse = await UseFetch(`/users/user?id=${session.id}`, 'GET');
+    const user = (await userResponse.json()) as User;
+
+    const ordersResponse = await UseFetch(`/orders/userOrders/${session.id}`, 'GET');
+    const orders = (await ordersResponse.json()) as Order[];
+
+    if (!Array.isArray(orders)) {
+        console.error('Orders is not an array');
+        return;
+    }
 
     async function logOut() {
         'use server';
