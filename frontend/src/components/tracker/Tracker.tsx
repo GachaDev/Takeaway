@@ -9,12 +9,14 @@ export default function Tracker({ userId }: { userId: number }) {
 
     useEffect(() => {
         const getOrders = async () => {
-            const orders = await (await useFetch(`/orders/userOrders/${userId}`, 'GET')).json();
-            const undeliveredOrder = orders.find((order: Order) => order.state !== 'delivered');
-            if (undeliveredOrder) {
-                setOrder(undeliveredOrder);
-            } else {
-                setOrder(undefined);
+            const orders = await (await useFetch(`/orders/userOrders/${userId}`, 'GET')).json() || [];
+            if (orders.length >= 1) {
+                const undeliveredOrder = orders?.find((order: Order) => order.state !== 'delivered');
+                if (undeliveredOrder) {
+                    setOrder(undeliveredOrder);
+                } else {
+                    setOrder(undefined);
+                }
             }
         };
 
