@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ModalNewProduct from './Modals/ModalNewProduct';
 import ModalNewIngredient from './Modals/ModalNewIngredient';
 import ModalNewCategory from './Modals/ModalNewCategory';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 
 export default function ActionsProducts({
     allProducts,

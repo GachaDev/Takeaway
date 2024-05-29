@@ -2,17 +2,17 @@
 import Cart from '@/components/cart/Cart';
 import { handleMinusCart, handlePlusCart } from '@/components/common/AddToCart';
 import { getSession } from '@/components/utils/getSession';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function CartPage() {
     const Products = (await (
-        await useFetch(`/products`, 'GET', '', ['products'])
+        await UseFetch(`/products`, 'GET', '', ['products'])
     ).json()) as Product[];
     const Ingredients = (await (
-        await useFetch(`/ingredients`, 'GET', '', ['ingredients'])
+        await UseFetch(`/ingredients`, 'GET', '', ['ingredients'])
     ).json()) as Ingredient[];
     const cart = cookies().get('cart')?.value;
     let cartProducts = cart ? JSON.parse(cart) : [];
@@ -54,7 +54,7 @@ export default async function CartPage() {
 
         revalidateTag('orders');
 
-        await useFetch(`/orders`, 'POST', JSON.stringify(data));
+        await UseFetch(`/orders`, 'POST', JSON.stringify(data));
 
         cookies().set('pickupOption', '', {
             expires: new Date(0),

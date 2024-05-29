@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import logo from '../../../public/logo.webp';
 import Link from 'next/link';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import { redirect } from 'next/navigation';
 
 export default async function Register() {
     async function register(formData: FormData) {
         'use server';
-        const result = await useFetch(
+        const result = await UseFetch(
             '/users',
             'POST',
             JSON.stringify({

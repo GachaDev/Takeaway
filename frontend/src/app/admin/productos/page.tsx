@@ -1,22 +1,22 @@
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import ProductsPage from '@/components/admin/productos/ProductsPage';
 
 export const revalidate = Infinity;
 export default async function Productos() {
     const Products = (await (
-        await useFetch(`/products`, 'GET', '', ['products'])
+        await UseFetch(`/products`, 'GET', '', ['products'])
     ).json()) as Product[];
     const Ingredients = (await (
-        await useFetch(`/ingredients`, 'GET', '', ['ingredients'])
+        await UseFetch(`/ingredients`, 'GET', '', ['ingredients'])
     ).json()) as Ingredient[];
     const Categories = (await (
-        await useFetch(`/categories`, 'GET', '', ['categories'])
+        await UseFetch(`/categories`, 'GET', '', ['categories'])
     ).json()) as Category[];
 
     const deleteProduct = async (id: number) => {
         'use server';
-        const result = await useFetch('/products/' + id, 'DELETE');
+        const result = await UseFetch('/products/' + id, 'DELETE');
         revalidatePath('/admin/productos');
         revalidatePath('/order');
         return result.ok;
@@ -24,7 +24,7 @@ export default async function Productos() {
 
     const createProduct = async (form: Product) => {
         'use server';
-        const result = await useFetch(
+        const result = await UseFetch(
             '/products',
             'POST',
             JSON.stringify({
@@ -47,7 +47,7 @@ export default async function Productos() {
 
     const createIngredient = async (val: string) => {
         'use server';
-        const result = await useFetch(
+        const result = await UseFetch(
             '/ingredients',
             'POST',
             JSON.stringify({
@@ -66,7 +66,7 @@ export default async function Productos() {
 
     const createCategory = async (name: string, label: string) => {
         'use server';
-        const result = await useFetch(
+        const result = await UseFetch(
             '/categories',
             'POST',
             JSON.stringify({

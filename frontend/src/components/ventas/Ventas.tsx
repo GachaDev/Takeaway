@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useFetch } from '../utils/useFetch';
+import { UseFetch } from '../utils/UseFetch';
 import { Select } from '@mantine/core';
 
 export const getLabelState = (state: OrderState) => {
@@ -34,7 +34,7 @@ export default function AllVentas({
     );
 
     const fetchOrders = async () => {
-        const response = await useFetch(`/orders`, 'GET', '', ['orders']);
+        const response = await UseFetch(`/orders`, 'GET', '', ['orders']);
         const ordersData = await response.json();
         const filteredOrders = ordersData.filter((order: Order) => order.state !== 'delivered');
         setOrders(filteredOrders);
@@ -131,33 +131,45 @@ export default function AllVentas({
                         <div>
                             <span>Productos: </span>
                             <div className="flex flex-col items-center flex-wrap gap-2">
-                                {order.orderProducts.map((orderProduct: OrderProduct) => (
-                                    <div className="flex flex-row w-full items-center gap-2">
-                                        <p className="text-lg">
-                                            {orderProduct.product.name} - {orderProduct.amount} ud
-                                        </p>
-                                        {orderProduct.removedIngredients.length > 0 && (
-                                            <div className="flex flex-row items-center gap-2">
-                                                <span>| Ingredientes eliminados: </span>
-                                                <div className="flex flex-wrap items-center gap-2">
-                                                    {orderProduct.removedIngredients.map(
-                                                        (removedIngredient: RemovedIngredient) => (
-                                                            <div className="flex flex-col gap-2">
-                                                                <p className="text-sm">
-                                                                    {
-                                                                        removedIngredient
-                                                                            .productIngredient
-                                                                            .ingredient.name
-                                                                    }
-                                                                </p>
-                                                            </div>
-                                                        )
-                                                    )}
+                                {order.orderProducts.map(
+                                    (orderProduct: OrderProduct, index: number) => (
+                                        <div
+                                            key={index}
+                                            className="flex flex-row w-full items-center gap-2"
+                                        >
+                                            <p className="text-lg">
+                                                {orderProduct.product.name} - {orderProduct.amount}{' '}
+                                                ud
+                                            </p>
+                                            {orderProduct.removedIngredients.length > 0 && (
+                                                <div className="flex flex-row items-center gap-2">
+                                                    <span>| Ingredientes eliminados: </span>
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        {orderProduct.removedIngredients.map(
+                                                            (
+                                                                removedIngredient: RemovedIngredient,
+                                                                key: number
+                                                            ) => (
+                                                                <div
+                                                                    key={key}
+                                                                    className="flex flex-col gap-2"
+                                                                >
+                                                                    <p className="text-sm">
+                                                                        {
+                                                                            removedIngredient
+                                                                                .productIngredient
+                                                                                .ingredient.name
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                            )
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
+                                            )}
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>

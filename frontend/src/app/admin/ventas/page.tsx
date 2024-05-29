@@ -1,23 +1,23 @@
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import AllVentas from '@/components/ventas/Ventas';
 import { revalidateTag } from 'next/cache';
 
 export default async function Ventas() {
-    const orders = (await (await useFetch(`/orders`, 'GET', '', ['orders'])).json()) as
+    const orders = (await (await UseFetch(`/orders`, 'GET', '', ['orders'])).json()) as
         | Order[]
         | [];
 
     const updateState = async (order: Order) => {
         'use server';
 
-        await useFetch(`/orders`, 'PUT', JSON.stringify({ order: order }), ['orders']);
+        await UseFetch(`/orders`, 'PUT', JSON.stringify({ order: order }), ['orders']);
         revalidateTag('orders');
     };
 
     const cancelOrder = async (id: number) => {
         'use server';
 
-        await useFetch(`/orders/${id}`, 'DELETE', '', ['orders']);
+        await UseFetch(`/orders/${id}`, 'DELETE', '', ['orders']);
         revalidateTag('orders');
     };
 

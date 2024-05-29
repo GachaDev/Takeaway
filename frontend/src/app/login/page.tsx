@@ -2,7 +2,7 @@ import Image from 'next/image';
 import logo from '../../../public/logo.webp';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import { redirect } from 'next/navigation';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
@@ -10,7 +10,7 @@ import Button from '@/components/common/Button';
 export default function Login() {
     async function signin(formData: FormData) {
         'use server';
-        const auth = await useFetch(
+        const auth = await UseFetch(
             '/users/login',
             'POST',
             JSON.stringify({ email: formData.get('email'), password: formData.get('password') })

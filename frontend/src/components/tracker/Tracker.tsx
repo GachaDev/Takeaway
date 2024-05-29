@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useFetch } from '../utils/useFetch';
+import { UseFetch } from '../utils/UseFetch';
 import { getLabelState } from '../ventas/Ventas';
 
 export default function Tracker({ userId }: { userId: number }) {
@@ -9,9 +9,12 @@ export default function Tracker({ userId }: { userId: number }) {
 
     useEffect(() => {
         const getOrders = async () => {
-            const orders = await (await useFetch(`/orders/userOrders/${userId}`, 'GET')).json() || [];
+            const orders =
+                (await (await UseFetch(`/orders/userOrders/${userId}`, 'GET')).json()) || [];
             if (orders.length >= 1) {
-                const undeliveredOrder = orders?.find((order: Order) => order.state !== 'delivered');
+                const undeliveredOrder = orders?.find(
+                    (order: Order) => order.state !== 'delivered'
+                );
                 if (undeliveredOrder) {
                     setOrder(undeliveredOrder);
                 } else {

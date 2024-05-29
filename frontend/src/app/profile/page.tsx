@@ -4,16 +4,16 @@ import LastOrders from '@/components/profile/LastOrders';
 import MyPoints from '@/components/profile/MyPoints';
 import PersonalInfo from '@/components/profile/PersonalInfo';
 import { getSession } from '@/components/utils/getSession';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const revalidate = Infinity;
 export default async function Profile() {
     const session = (await getSession()) as Session;
-    const user = (await (await useFetch(`/users/user?id=${session.id}`, 'GET')).json()) as User;
+    const user = (await (await UseFetch(`/users/user?id=${session.id}`, 'GET')).json()) as User;
     const orders = (await (
-        await useFetch(`/orders/userOrders/${session.id}`, 'GET')
+        await UseFetch(`/orders/userOrders/${session.id}`, 'GET')
     ).json()) as Order[];
 
     async function logOut() {
@@ -30,7 +30,7 @@ export default async function Profile() {
             return;
         }
 
-        const result = await useFetch(
+        const result = await UseFetch(
             '/users/changePassword',
             'POST',
             JSON.stringify({
@@ -51,7 +51,7 @@ export default async function Profile() {
             return;
         }
 
-        const result = await useFetch(
+        const result = await UseFetch(
             '/users/changeInfo',
             'POST',
             JSON.stringify({

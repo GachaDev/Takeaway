@@ -1,6 +1,6 @@
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-export const useFetch = async (
+export const UseFetch = async (
     url: string,
     method: Method,
     body?: string | FormData,

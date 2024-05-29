@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import image1 from '../../public/carousel/image3.webp';
 import Product from '@/components/common/Product';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 
 export default async function Home() {
     const Products = (await (
-        await useFetch(`/products`, 'GET', '', ['products'])
+        await UseFetch(`/products`, 'GET', '', ['products'])
     ).json()) as Product[];
 
     const sortedProducts = Products.sort((a, b) => b.id - a.id);

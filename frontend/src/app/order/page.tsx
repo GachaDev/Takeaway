@@ -1,17 +1,17 @@
 import ModalOrder from '@/components/order/ModalOrder';
 import '@mantine/core/styles.css';
 import { cookies } from 'next/headers';
-import { useFetch } from '@/components/utils/useFetch';
+import { UseFetch } from '@/components/utils/UseFetch';
 import Link from 'next/link';
 import { handleAddToCart } from '@/components/common/AddToCart';
 import AllProducts from '@/components/order/Products';
 
 export default async function Order() {
     const Products = (await (
-        await useFetch(`/products`, 'GET', '', ['products'])
+        await UseFetch(`/products`, 'GET', '', ['products'])
     ).json()) as Product[];
     const Categories = (await (
-        await useFetch(`/categories`, 'GET', '', ['categories'])
+        await UseFetch(`/categories`, 'GET', '', ['categories'])
     ).json()) as Category[];
 
     const setTypeOrder = async (pickupOption: string, address: string) => {
