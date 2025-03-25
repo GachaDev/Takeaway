@@ -14,7 +14,7 @@
         "@mantine/modals": "^7.9.0",
         "@tabler/icons-react": "^3.2.0",
         "jose": "^5.2.4",
-        "next": "14.2.2",
+        "next": "14.2.25",
         "react": "^18",
         "react-dom": "^18",
         "sonner": "^1.4.41"
